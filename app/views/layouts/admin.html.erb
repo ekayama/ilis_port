@@ -9,25 +9,34 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
-    <header>
+  <header>
       <nav>
         <ul>
-            <!-- サインインしていない場合のリンク --> 
-            <!-- ユーザー用ログインリンク --> 
+          # <% if user_signed_in? %>
+            <% if current_user&.admin? %>
+            <!-- 管理者としてログインしている場合のリンク -->
               <li>
-                <%= link_to "Home", root_path %>
+                #<%= link_to "Home", root_path %>
               </li>
               <li>
-                <%= link_to "About", about_path %>
+                #<%= link_to "About", about_path %>
               </li>
-              <li>
-                <%= link_to "ログイン", new_user_session_path %>
+              <li> 
+                <%= link_to "管理者ログアウト", destroy_admin_session_path, method: :delete %>
               </li>
-              <li>
-                <%= link_to "新規登録", new_user_registration_path %>
-              </li>
+            <% else %>
+            <% else %>
+            <!-- サインインしていない場合のリンク
+            <li>
+             # <%= link_to "Home", root_path %>
+            </li>
+            <li>
+              #<%= link_to "About", about_path %>
+            </li>
+              <%= link_to "管理者ログイン", new_admin_session_path %>
+            </li>
+         <% end %>
         </ul>
       </nav>
     </header>
@@ -39,7 +48,7 @@
 
     <footer>
       <div>
-        <%= link_to "管理者専用", new_admin_session_path %><br>
+        <%= link_to "管理者専用", new_admin_session_path %>
         <%= link_to "管理者ログアウト", destroy_admin_session_path, method: :delete %>
       </div>
       <div>
