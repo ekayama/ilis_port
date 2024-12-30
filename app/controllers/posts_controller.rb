@@ -15,14 +15,22 @@ class PostsController < ApplicationController
   
     def index
       @posts = Post.all
+      @user = current_user
     end
   
     def show
       @post = Post.find(params[:id])
+      @user = @post.user
+      @posts = @user.posts
+
     end
   
     def edit
       @post = Post.find(params[:id])
+      # postを投稿したユーザーだけが編集できるようにする
+      unless @post.user.id == current_user.id
+        redirect_to posts_path
+      end
     end
   
     def update

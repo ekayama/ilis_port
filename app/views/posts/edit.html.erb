@@ -1,3 +1,14 @@
+<div id="error">
+<% if @post.errors.any? %>
+<h3><%= @post.errors.count %> errors prohibited this obj from being saved:</h3>
+<ul>
+  <% @post.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+  <% end %>
+</ul>
+<% end %>
+
+
 <h1>投稿内容編集</h1>
 
 <%= form_with model: @post do |f| %>

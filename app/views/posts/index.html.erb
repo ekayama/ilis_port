@@ -2,19 +2,23 @@
 
 <% @posts.each do |post| %>
   <div>
-  <%= link_to post_path(post.id) do %>
+  <%= link_to post_path(post) do %>
     <%= image_tag post.get_image(400, 400) %>
   <% end %>
 
-    <p>投稿ユーザー画像：<%= image_tag post.user.get_profile_image(100,100) %></p>
+  <p>投稿ユーザー画像：<%= image_tag post.user.get_profile_image(100,100) %></p>
 
-    <p>タイトル：<%= post.title %></p>
+  <p><%= link_to post_path(post.id) do %>
+     詳細：<%= post.title %>
+    <% end %></p>
 
     <p>説明：<%= post.body %></p>
-
-    <p>ユーザーネーム：<%= post.user.username %></p>
-
-    
-
+  
   </div>
+    ユーザーネーム：<%= post.user.username %>
+
+
+
 <% end %>
+
+

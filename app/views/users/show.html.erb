@@ -1,31 +1,40 @@
+
+
 <!-- ユーザーの詳細 -->
-
+<!-- 編集画面の遷移リンク表示有無 -->
 <div>
-  <h3><%= @users.username %></h3>
-  <%= image_tag @users.get_profile_image(100,100) %>
-  <% if @users == current_user %>
-    <p><%= link_to "プロフィール編集", edit_user_path(@users) %></p>
+  <h3><%= @user.username %></h3>
+  <%= image_tag @user.get_profile_image(100,100) %>
+  自己紹介：<%= @user.profile_description %>
+
+  <% if @user == current_user %>
+    <p><%= link_to "プロフィール編集", edit_user_path %></p>
   <% end %>
 </div>
 
-
-
-<!-- ユーザーの投稿一覧 -->
-
+<!-- 投稿一覧 -->
+<h4>これまでの投稿</h4>
+<div>
 <% @posts.each do |post| %>
-<div>
+  <%= link_to post_path(post) do %>
+    <%= image_tag post.get_image(400,400) %><br>
+    タイトル：<%= post.title %>
+  <% end %><br>
+   <p>本文：<%= post.body %></p>
+   <p>ユーザーネーム：<%= post.user.username %></p>
 
-  <%= link_to post_path(post.id) do %>
-    <%= image_tag post.get_image %>
+ <% if post.user == current_user %>
+    <%= link_to "削除", post_path(post), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+    <%= link_to "編集",  edit_user_path(@user) %>
   <% end %>
+  </div>
 
-  <p>投稿ユーザー画像：<%= image_tag post.users.get_profile_image(100,100) %></p>
-
-  <p>タイトル：<%= post.title %></p>
-
-  <p>説明：<%= post.body %></p>
-
-  <p>ユーザーネーム：<%= post.users.username %></p>
-
-</div>
 <% end %>
+
+
+
+
+
+
+
+
