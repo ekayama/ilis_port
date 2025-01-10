@@ -1,5 +1,5 @@
 
-
+<br>
 <!-- ユーザーの詳細 -->
 <!-- 編集画面の遷移リンク表示有無 -->
 <div>
@@ -25,8 +25,8 @@
 
  <% if post.user == current_user %>
     <%= link_to "削除", post_path(post), method: :delete, "data-confirm" => "本当に削除しますか？" %>
-    <%= link_to "編集",  edit_user_path(@user) %>
-  <% end %>
+    <%= link_to "編集",  edit_post_path(post.id) %>
+  <% end %><br>
   </div>
 
 <% end %>

@@ -52,11 +52,14 @@
       <% flash.each do |message_type, message| %>
         <div class="flash-message <%= message_type %>"><%= message %></div>
       <% end %>
+      <div class="d-flex justify-content-center mb-2">
+        <%= render "searches/form" %>
+      </div>
       <%= yield %><br><br>
     </main>
     <footer>
       <div class="container">
-        <div class="row m-5">
+        <div class="row m-3">
           <div class="mx-auto">
             <div>
               <%= link_to "管理者専用", new_admin_session_path %><br>

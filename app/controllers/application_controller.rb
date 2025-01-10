@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
 
   layout :set_layout
 
+  def after_sign_in_path_for(resource) posts_path # ログイン後にリダイレクトしたいパスを指定
+  end
 
   protected
 
