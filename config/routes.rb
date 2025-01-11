@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     confirmations: "admins/confirmations"
   }
 
-  resources :users, only: [:mypage, :show, :destroy, :update, :edit]
+  resources :users, only: [:mypage, :show, :destroy, :update, :edit, :index]
   resources :posts, only: [:new, :create, :destroy, :index, :show, :edit, :update]
   resources :posts_type, only: [:index, :show, :create, :destroy, :update]
   resources :comments, only: [:index, :show, :create, :destroy, :update]

@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+
+
     def new
       @post = Post.new
     end
@@ -7,7 +9,8 @@ class PostsController < ApplicationController
       @post = Post.new(post_params)
       @post.user_id = current_user.id
       if @post.save
-        redirect_to posts_path
+        redirect_to post_path(@post)
+        
       else
         render :new
       end
@@ -15,7 +18,6 @@ class PostsController < ApplicationController
   
     def index
       @posts = Post.all
-      @user = current_user
     end
   
     def show
@@ -54,4 +56,7 @@ class PostsController < ApplicationController
     def post_params
       params.require(:post).permit(:users_id, :posts_type_id, :image, :title, :body, :media_url)
     end
+
+    
+
 end

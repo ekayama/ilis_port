@@ -18,16 +18,17 @@ class User < ApplicationRecord
     end
     profile_image.variant(resize_to_limit: [height, width]).processed
   end
+  
  
   def self.search_for(content, method)
     if method == 'perfect'
-      User.where(name: content)
+      User.where(username: content)
     elsif method == 'forward'
-      User.where('name LIKE ?', content + '%')
+      User.where('username LIKE ?', content + '%')
     elsif method == 'backward'
-      User.where('name LIKE ?', '%' + content)
+      User.where('username LIKE ?', '%' + content)
     else
-      User.where('name LIKE ?', '%' + content + '%')
+      User.where('username LIKE ?', '%' + content + '%')
     end
   end
 end

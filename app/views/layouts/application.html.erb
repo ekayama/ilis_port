@@ -52,9 +52,6 @@
       <% flash.each do |message_type, message| %>
         <div class="flash-message <%= message_type %>"><%= message %></div>
       <% end %>
-      <div class="d-flex justify-content-center mb-2">
-        <%= render "searches/form" %>
-      </div>
       <%= yield %><br><br>
     </main>
     <footer>

@@ -10,7 +10,7 @@ def search
   if @model  == "user"
     @records = User.search_for(@content, @method)
   else
-    @records = Posts.search_for(@content, @method)
+    @records = Post.search_for(@content, @method)
   end
  end
 end

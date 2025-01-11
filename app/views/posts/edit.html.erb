@@ -23,14 +23,8 @@
 
   <%= f.submit '更新' %>
 
+  <%= link_to "Back", post_path(@post.id) %>
+
 <% end %>
 
- <div id="error">
- <% if @post.errors.any? %>
- <h3><%= @post.errors.count %> errors prohibited this obj from being saved:</h3>
- <ul>
-   <% @post.errors.full_messages.each do |message| %>
-     <li><%= message %></li>
-   <% end %>
- </ul>
- <% end %>
+

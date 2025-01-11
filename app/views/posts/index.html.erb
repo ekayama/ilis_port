@@ -1,5 +1,10 @@
 <br>
+ <%= link_to new_post_path, class: 'dropdown-item nav-link text-black'  do %>
+    <i class="fa-solid fa-pen-to-square"></i> 投稿フォーム
+ <% end %>
 <%= render "searches/form" %>
+<br>
+
 <h1>投稿一覧</h1>
 
 <% @posts.each do |post| %>

@@ -1,9 +1,14 @@
 class UsersController < ApplicationController
+
   def mypage
   end
 
   def edit
     @users = User.find(params[:id])
+    unless @users.id == current_user.id
+      redirect_to new_user_session_path
+    end
+   
   end
 
   def show
@@ -14,6 +19,7 @@ class UsersController < ApplicationController
   def index
     @users = User.all
     @post = Post.new
+    
   end
 
   def update
@@ -39,6 +45,5 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :profile_image, :profile_description)
   end
-
   
 end
