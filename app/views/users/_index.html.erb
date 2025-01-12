@@ -1,5 +1,7 @@
 <% @records.each do |user| %>
-
-  ユーザーネーム：<%= user.username %><br>
+ユーザー画像：<%= image_tag user.get_profile_image(100,100) %>
+ユーザーネーム：<%= link_to user_path(user) do %>
+  <%= user.username %><br>
+<% end %>
 
 <% end %>

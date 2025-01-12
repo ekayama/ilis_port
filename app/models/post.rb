@@ -18,12 +18,13 @@ class Post < ApplicationRecord
   def self.search_for(content, method)
     if method == 'perfect'
       Post.where(title: content)
+      # ここだけエラーが起きて実装できず。。
     elsif method == 'forward'
-      Post.where('title LIKE ?', content+'%')
+      Post.where('title or body LIKE ?', content+'%')
     elsif method == 'backward'
-      Post.where('title LIKE ?', '%'+content)
+      Post.where('title or body LIKE ?', '%'+content)
     else
-      Post.where('title LIKE ?', '%'+content+'%')
+      Post.where('title or body LIKE ?', '%'+content+'%')
     end
   end
 end

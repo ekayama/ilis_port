@@ -1,6 +1,5 @@
 class PostsController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update]
-  # before_action :ensure_correct_user2, only: [:create, :index, :show]
 
     def new
       @post = Post.new
@@ -11,7 +10,6 @@ class PostsController < ApplicationController
       @post.user_id = current_user.id
       if @post.save
         redirect_to post_path(@post)
-        
       else
         render :new
       end
@@ -63,15 +61,6 @@ class PostsController < ApplicationController
       unless post.user.id == current_user.id
         redirect_to posts_path
       end
-    end
-
-    # def ensure_correct_user2
-      # post = Post.find(params[:id])
-      # unless post.user.id == current_user.id
-        # redirect_to new_user_session_path
-      # end
-    # end
-
-    
+    end 
 
 end
