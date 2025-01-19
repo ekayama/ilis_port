@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_12_30_104600) do
+ActiveRecord::Schema.define(version: 2025_01_18_165340) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -71,8 +71,8 @@ ActiveRecord::Schema.define(version: 2024_12_30_104600) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.integer "users_id"
-    t.string "posts_id"
+    t.integer "user_id"
+    t.string "post_id"
     t.text "comment"
     t.boolean "is_public", default: false, null: false
     t.datetime "created_at", precision: 6, null: false

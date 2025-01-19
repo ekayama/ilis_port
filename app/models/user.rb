@@ -4,12 +4,16 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-
-  validates :email, presence: true, length: { minimum: 2 }
-  validates :username, uniqueness: true, length: { maximum: 20 }
-
+  
   has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_one_attached :profile_image
+
+  validates :email, uniqueness: true, presence: true, length: { minimum: 2 }
+  validates :username, presence: true, uniqueness: true, length: { maximum: 20 }
+  validates :profile_description, length: { maximum: 50 }
+  
+
 
   def get_profile_image(height, width)
     unless profile_image.attached?

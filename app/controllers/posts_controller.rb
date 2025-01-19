@@ -23,6 +23,7 @@ class PostsController < ApplicationController
       @post = Post.find(params[:id])
       @user = @post.user
       @posts = @user.posts
+      @comment = Comment.new
 
     end
   
