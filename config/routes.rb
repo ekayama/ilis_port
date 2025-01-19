@@ -15,11 +15,12 @@ Rails.application.routes.draw do
     passwords: "admins/passwords",
     confirmations: "admins/confirmations"
   }
-
+  resources :posts, only: [:new, :create, :destroy, :index, :show, :edit, :update] do
+    resources :comments, only: [:index, :show, :create, :destroy, :update]
+  end
+  
   resources :users, only: [:mypage, :show, :destroy, :update, :edit, :index]
-  resources :posts, only: [:new, :create, :destroy, :index, :show, :edit, :update]
   resources :posts_type, only: [:index, :show, :create, :destroy, :update]
-  resources :comments, only: [:index, :show, :create, :destroy, :update]
   resources :chats, only: [:create, :destroy, :index, :show]
   resources :bookmarks, only: [:create, :destroy]
   resources :favorite, only: [:create, :destroy]

@@ -25,16 +25,17 @@
   <%= link_to post_path(post) do %>
     <%= image_tag post.get_image(400,400) %><br>
     タイトル：<%= post.title %>
-  <% end %><br>
+  <% end %>
    <p>本文：<%= post.body %></p>
    <p>ユーザーネーム：<%= post.user.username %></p>
+
+   <p><%= link_to "#{post.comments.count} コメント", post_path(post.id) %></p>
 
  <% if post.user == current_user %>
     <%= link_to "削除", post_path(post), method: :delete, "data-confirm" => "本当に削除しますか？" %>
     <%= link_to "編集",  edit_post_path(post.id) %>
   <% end %><br>
   </div>
-
 <% end %>
 
 

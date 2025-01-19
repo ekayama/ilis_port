@@ -5,8 +5,8 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @users = User.find(params[:id])
-    unless @users.id == current_user.id
+    @user = User.find(params[:id])
+    unless @user.id == current_user.id
       redirect_to new_user_session_path
     end
    
@@ -29,6 +29,7 @@ class UsersController < ApplicationController
       flash[:notice] = "You have updated user successfully."
       redirect_to user_path(@user.id)
     else
+      flash.now[:alert] = "失敗しました。"
       render :edit
     end
   end
@@ -44,7 +45,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :profile_image, :profile_description)
+    params.require(:user).permit(:username, :email, :profile_image, :profile_description)
   end
   
   def is_matching_login_user

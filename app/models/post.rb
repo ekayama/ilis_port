@@ -1,11 +1,12 @@
 class Post < ApplicationRecord
-
   has_one_attached :image
   belongs_to :user
+  has_many :comments, dependent: :destroy
 
-  validates :title, presence: true
+  validates :title, presence: true, length:{maximum:400}
   validates :body, presence: true
   validates :image, presence: true
+  
   
   def get_image(height, width)
     unless image.attached?
