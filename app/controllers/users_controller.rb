@@ -31,6 +31,8 @@ class UsersController < ApplicationController
     else
       flash.now[:alert] = "失敗しました。"
       render :edit
+      <!-- flashの[:notice]と[:alert]の違いはほぼない。c ssで装飾したいかどうかの違い -->
+      <!-- flash.nowは画面が変わってから表示するのではなく、そのまま強制的に表示するもの-->
     end
   end
 
@@ -46,6 +48,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:username, :email, :profile_image, :profile_description)
+    <!-- ユーザー編集したときに情報が保存されかった理由は、このpermitに保存する情報を記載してなかったから。permit（）の中にある項目が保存許可されてる情報 -->
   end
   
   def is_matching_login_user

@@ -48,6 +48,9 @@
         <%= link_to "削除", post_comment_path(@post, comment), method: :delete,
             class: "btn btn-danger pull-right",
             data: { confirm: "本当に削除しますか？" } %>
+            <!-- data: { confirm:　はセットで覚える -->
+            <!-- 今回コメントの削除を押すと投稿自体が消えたのはpost_comment_pathが post_pathになっていたから 
+                  post_pathのみだとコメント側の引数を渡せていないので、投稿自体の削除しか機能してなかった。rootsでポストとコメントのURL確認しっかりする -->
       <% end %><br><br><br>
     <% end %>
 
