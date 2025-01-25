@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  mount RailsAdmin::Engine => '//admin', as: 'rails_admin'
   scope module: :public do
   devise_for :users, controllers: {
     # ↓ローカルに追加されたコントローラーを参照する(コントローラー名: "コントローラーの参照先")
