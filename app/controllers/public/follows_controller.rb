@@ -1,4 +1,4 @@
-class FollowsController < ApplicationController
+class Public::FollowsController < ApplicationController
   def create
   end
 

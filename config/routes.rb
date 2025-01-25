@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '//admin', as: 'rails_admin'
+  scope module: :public do
   devise_for :users, controllers: {
     # ↓ローカルに追加されたコントローラーを参照する(コントローラー名: "コントローラーの参照先")
     registrations: "users/registrations",
@@ -7,14 +8,13 @@ Rails.application.routes.draw do
     passwords: "users/passwords",
     confirmations: "users/confirmations"
   }
-  
-  devise_for :admins, controllers: {
-    # ↓ローカルに追加されたコントローラーを参照する(コントローラー名: "コントローラーの参照先")
-    registrations: "admins/registrations",
-    sessions: "admins/sessions",
-    passwords: "admins/passwords",
-    confirmations: "admins/confirmations"
-  }
+
+  root to: "homes#top"
+  get 'homes/about' => 'homes#about', as: 'about'
+  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  get "/search", to: "searches#search"
+
   resources :posts, only: [:new, :create, :destroy, :index, :show, :edit, :update] do
     resources :comments, only: [:index, :show, :create, :destroy, :update]
   end
@@ -25,11 +25,15 @@ Rails.application.routes.draw do
   resources :bookmarks, only: [:create, :destroy]
   resources :favorite, only: [:create, :destroy]
   resources :follows, only: [:create, :destroy, :followings, :followers]
+end
+  
 
-  root to: "homes#top"
-  get 'homes/about' => 'homes#about', as: 'about'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  devise_for :admin, skip: [:registrations, :password], controllers: {
+    sessions: 'admin/sessions'
+  }
 
-  get "/search", to: "searches#search"
-
+  namespace :admin do
+    get 'dashboards', to: 'dashboards#index'
+    resource :users, only: [:destroy]
+  end
 end

@@ -1,4 +1,4 @@
-class ChatsController < ApplicationController
+class Public::PostsTypeController < ApplicationController
   def index
   end
 
@@ -6,6 +6,9 @@ class ChatsController < ApplicationController
   end
 
   def create
+  end
+
+  def update
   end
 
   def destroy
