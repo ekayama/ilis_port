@@ -62,10 +62,6 @@
               <%= link_to "管理者専用", new_admin_session_path %><br>
               <%= link_to "管理者ログアウト", destroy_admin_session_path, method: :delete %>
             </div>
-            <!--ログインしてるユーザーが管理者の場合のみ-->
-            <% if current_user.try(:admin?) %>
-              <%= link_to '管理者ログイン', rails_admin_path %>
-            <% end %>
             <div>
               <p>© 2024 Your Company. All rights reserved.</p>
             </div>
