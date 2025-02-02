@@ -4,15 +4,67 @@
   <title>Admin - ilis_port</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
+  <script src="https://kit.fontawesome.com/2bd7263e69.js" crossorigin="anonymous"></script>
   <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 <body>
-  <% if admin_signed_in? %>
-    <div class="text-right">
-      <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container">
+        <a class="navbar-brand text-light" href="/">
+          <span>Ilis_port</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="true" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ml-auto">
+
+            <% if admin_signed_in? %>
+              <li class="nav-item dropdown">
+                <%= link_to root_path, class: 'dropdown-item nav-link text-white' do %>
+                  <i class="fa-solid fa-house"></i> Home
+                <% end %>
+              </li>
+              <li class="nav-item dropdown">
+                <%= link_to user_path(current_user.id), class: 'dropdown-item nav-link text-white' do %>
+                  <i class="fa-solid fa-house-user"></i> マイページ
+                <% end %>
+              </li>
+              <li class="nav-item dropdown">
+                <%= link_to posts_path, class: 'dropdown-item nav-link text-white' do %>
+                 <i class="fa-solid fa-images"></i> 投稿一覧
+                <% end %>
+              </li>
+              <li class="nav-item dropdown">
+                <%= link_to destroy_admin_session_path, method: :delete, class: 'dropdown-item nav-link text-white' do %>
+                  <i class="fa-solid fa-pen-to-square"></i> ログアウト
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <% flash.each do |message_type, message| %>
+      <div class="flash-message <%= message_type %>"><%= message %></div>
+    <% end %>
+    <%= yield %>
+  </main>
+  <fotter>
+    <div class="container bg-info text-white centered-text">
+      <div class="row text-center">
+        <div class="col-12">
+          <div>
+            <br>
+            <p>© 2024 Your Company. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
     </div>
-  <% end %>
-  <%= yield %>
+  </fotter>
 </body>
 </html>

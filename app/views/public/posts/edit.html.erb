@@ -10,20 +10,43 @@
 </div>
 
 <br>
-<div class="p-3 mb-2">
-  <div class="container">
-  <h1>投稿内容編集</h1>
-    <%= form_with model: @post do |f| %>
-      <h4>画像</h4>
-        <%= f.file_field :image, accept: "image/*" %>
-      <h4>タイトル</h4>
-        <%= f.text_field :title %>
-      <h4>説明</h4>
-        <%= f.text_area :body %>
-      <%= f.submit '更新' %>
-      <%= link_to "Back", post_path(@post.id) %> 
-   <% end %>
+<div class="p-3 m-3">
+  <div class="container font">
+    <div class="row">
+      <div class="d-none d-lg-block d-xl-block col-lg-3">
+        何か表示したい
+      </div>
+
+      <div class="col-8 col-none-12 col-sm-12 col-md-12 col-lg-9">
+        <h2>投稿内容編集</h2>
+          <%= form_with model: @post do |f| %>
+            <table class="table">
+              <tr>
+                <th>画像</th>
+                <br>
+                <td><%= f.file_field :image, accept: "image/*" %></td>
+              </tr>
+              <tr>
+                <th>タイトル</th>
+                <td><%= f.text_field :title %></td>
+              </tr>
+              <tr>
+                <th>説明</th>
+                <td> <%= f.text_area :body %></td>
+              </tr>
+              <tr>
+                <td> </td>
+                <td><%= f.submit '更新' %> <%= link_to "Back", post_path(@post.id) %> </td>
+              </tr>
+           </table> 
+         <% end %>
+      </div>
+    </div>
   </div>
 </div>
+
+
+
+
 
 

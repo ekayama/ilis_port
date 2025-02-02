@@ -1,4 +1,4 @@
-<div class="p-3 mb-2">
+<div class="p-3 m-3 font">
   <div class="container">
 
      <br>
@@ -14,21 +14,21 @@
          <h3><%= @user.username %></h3>
            <%= image_tag @user.get_profile_image(80,80), class: "mt-1 rounded-circle" %>
            自己紹介：<%= @user.profile_description %>
-
+           <br>
            <% if @user == current_user %>
              <p><%= link_to "プロフィール編集", edit_user_path %></p>
            <% end %>
        <br>
 
        <!-- 投稿一覧 -->
-       <h4>過去の投稿</h4>
+       <h5>過去の投稿</h5>
        <br>
          <div class="row d-lg-flex flex-wrap">
              <% @posts.each do |post| %>
                <div class="col-md-5 col-lg-4">
                  <%= link_to post_path(post) do %>
                    <%= image_tag post.get_image(300,300) %><br>
-                   タイトル：<%= post.title %>
+                   <%= post.title %>
                  <% end %>
                 <!-- <%= post.body %> -->
                 <!-- <br>ユーザー：<%= post.user.username %> -->

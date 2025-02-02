@@ -11,7 +11,7 @@
   </head>
   <body>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+      <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
           <a class="navbar-brand text-light" href="/">
             <span>Ilis_port</span>
@@ -49,7 +49,7 @@
               </li>
               <li class="nav-item dropdown">
                 <%= link_to posts_path, class: 'dropdown-item nav-link text-white' do %>
-                  投稿一覧
+                  <i class="fa-solid fa-images"></i> 投稿一覧
                 <% end %>
               </li>
               <li class="nav-item dropdown">
@@ -74,7 +74,7 @@
     <% flash.each do |message_type, message| %>
       <div class="flash-message <%= message_type %>"><%= message %></div>
     <% end %>
-    <%= yield %><br><br>
+    <%= yield %>
   </main>
   
   <footer>

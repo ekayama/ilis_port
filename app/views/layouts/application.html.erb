@@ -8,11 +8,10 @@
     <script src="https://kit.fontawesome.com/2bd7263e69.js" crossorigin="anonymous"></script>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <link rel="stylesheet" href="./assets/application.css">
   </head>
   <body>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-info >
+      <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
           <a class="navbar-brand text-light" href="/">
             <span>Ilis_port</span>
@@ -53,7 +52,7 @@
       <% flash.each do |message_type, message| %>
         <div class="flash-message <%= message_type %>"><%= message %></div>
       <% end %>
-      <%= yield %><br><br>
+      <%= yield %>
     </main>
     <footer>
       <div class="container">
@@ -61,7 +60,6 @@
           <div class="mx-auto">
             <div>
               <%= link_to "管理者専用", new_admin_session_path %><br>
-              <%= link_to "管理者ログアウト", destroy_admin_session_path, method: :delete %>
             </div>
             <div>
               <p>© 2024 Your Company. All rights reserved.</p>

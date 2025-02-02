@@ -1,13 +1,14 @@
 
-<div class="p-3 mb-2 ">
+<div class="p-3 m-3 font">
 <div class="container">
-     <%= link_to new_post_path, class: 'dropdown-item nav-link text-white'  do %>
+     <br>
+     <%= link_to new_post_path, class: 'dropdown-item nav-link text-black'  do %>
        <i class="fa-solid fa-pen-to-square"></i> 投稿フォーム
      <% end %>
      <%= render "public/searches/form" %>
 
 
-    <h1 class="index">投稿一覧</h1>
+    <h1 class="index">投稿一覧</h1><br>
     <div class="row d-lg-flex flex-wrap">
       <% @posts.each do |post| %>
         <div class="col-md-6 col-lg-3">
