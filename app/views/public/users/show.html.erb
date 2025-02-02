@@ -1,43 +1,49 @@
+<div class="p-3 mb-2">
+  <div class="container">
 
-<br>
-<%= link_to new_post_path, class: 'dropdown-item nav-link text-black'  do %>
-  <i class="fa-solid fa-pen-to-square"></i> 投稿フォーム
-<% end %>
-<%= render "public/searches/form" %>
-<br>
+     <br>
+     <%= link_to new_post_path, class: 'dropdown-item nav-link text-black'  do %>
+       <i class="fa-solid fa-pen-to-square"></i> 投稿フォーム
+     <% end %>
+     <%= render "public/searches/form" %>
+     <br>
 
-<!-- ユーザーの詳細 -->
-<!-- 編集画面の遷移リンク表示有無 -->
-<div>
-  <h3><%= @user.username %></h3>
-  <%= image_tag @user.get_profile_image(100,100) %>
-  自己紹介：<%= @user.profile_description %>
+     <div class="body">
+     <!-- ユーザーの詳細 -->
+     <!-- 編集画面の遷移リンク表示有無 -->
+         <h3><%= @user.username %></h3>
+           <%= image_tag @user.get_profile_image(80,80), class: "mt-1 rounded-circle" %>
+           自己紹介：<%= @user.profile_description %>
 
-  <% if @user == current_user %>
-    <p><%= link_to "プロフィール編集", edit_user_path %></p>
-  <% end %>
-</div>
+           <% if @user == current_user %>
+             <p><%= link_to "プロフィール編集", edit_user_path %></p>
+           <% end %>
+       <br>
 
-<!-- 投稿一覧 -->
-<h4>これまでの投稿</h4>
-<div>
-<% @posts.each do |post| %>
-  <%= link_to post_path(post) do %>
-    <%= image_tag post.get_image(400,400) %><br>
-    タイトル：<%= post.title %>
-  <% end %>
-   <p>本文：<%= post.body %></p>
-   <p>ユーザーネーム：<%= post.user.username %></p>
+       <!-- 投稿一覧 -->
+       <h4>過去の投稿</h4>
+       <br>
+         <div class="row d-lg-flex flex-wrap">
+             <% @posts.each do |post| %>
+               <div class="col-md-5 col-lg-4">
+                 <%= link_to post_path(post) do %>
+                   <%= image_tag post.get_image(300,300) %><br>
+                   タイトル：<%= post.title %>
+                 <% end %>
+                <!-- <%= post.body %> -->
+                <!-- <br>ユーザー：<%= post.user.username %> -->
+                 <p><%= link_to "#{post.comments.count} コメント", post_path(post.id) %></p>
 
-   <p><%= link_to "#{post.comments.count} コメント", post_path(post.id) %></p>
-
- <% if post.user == current_user %>
-    <%= link_to "削除", post_path(post), method: :delete, "data-confirm" => "本当に削除しますか？" %>
-    <%= link_to "編集",  edit_post_path(post.id) %>
-  <% end %><br>
+                 <% if post.user == current_user %>
+                   <%= link_to "削除", post_path(post), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+                   <%= link_to "編集",  edit_post_path(post.id) %>
+                 <% end %><br>
+               </div>
+             <% end %>
+         </div>
+     </div>
   </div>
-<% end %>
-
+</div>
 
 
 

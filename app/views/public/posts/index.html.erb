@@ -1,38 +1,36 @@
 
-
+<div class="p-3 mb-2 ">
 <div class="container">
-     <%= link_to new_post_path, class: 'dropdown-item nav-link text-black'  do %>
+     <%= link_to new_post_path, class: 'dropdown-item nav-link text-white'  do %>
        <i class="fa-solid fa-pen-to-square"></i> 投稿フォーム
      <% end %>
      <%= render "public/searches/form" %>
-    <br>
+
 
     <h1 class="index">投稿一覧</h1>
-
-    <% @posts.each do |post| %>
-       <div class="w-50 mx-auto mt-4 shadow-lg text-center">
-       <%= link_to post_path(post) do %>
-         <%= image_tag post.get_image(350, 350) %>
-       <% end %>
-       <div class="body">
-        <div class="row">
-          <div class="col-md-4 pl-30 text-right">
-            <%= image_tag post.user.get_profile_image(80,80), class: "mt-1 rounded-circle"; %>
-          </div>
-          <div class="col-md-8 text-left">
-          <p class="title">
+    <div class="row d-lg-flex flex-wrap">
+      <% @posts.each do |post| %>
+        <div class="col-md-6 col-lg-3">
+          <%= link_to post_path(post) do %>
+            <%= image_tag post.get_image(250, 250) %>
+          <% end %>
+          <br>
+          <%= image_tag post.user.get_profile_image(60,40), class: "mt-1 rounded-circle" %>
             <%= link_to post_path(post.id) do %>
-              <strong><%= post.title %></strong>
+               <strong><%= post.title %></strong>
             <% end %>
-          </p>
-          <p class="text">説明：<%= post.body %></p>
-          <span><%= post.user.username %>  |  </span>
-          <span><%= link_to "#{post.comments.count} コメント", post_path(post.id) %></span>
-          </div>
+            <br>
+            説明：<%= post.body %>
+            <br>
+            <%= post.user.username %>  | 
+            <span><%= link_to "#{post.comments.count} コメント", post_path(post.id) %></span>
+            <br><br>
         </div>
-       </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
+</div>
+</div>
+    
 
 
 
