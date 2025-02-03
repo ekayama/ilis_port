@@ -1,0 +1,38 @@
+
+<div class="p-3 m-3 font">
+<div class="container">
+     <br>
+     <%= link_to new_post_path, class: 'dropdown-item nav-link text-black'  do %>
+       <i class="fa-solid fa-pen-to-square"></i> 投稿フォーム
+     <% end %>
+     <%= render "public/searches/form" %>
+
+
+    <h2 class="index">投稿一覧</h2><br>
+    <div class="row d-lg-flex flex-wrap">
+      <% @posts.each do |post| %>
+        <div class="col-md-6 col-lg-3">
+          <%= link_to post_path(post) do %>
+            <%= image_tag post.get_image(250, 250) %>
+          <% end %>
+          <br>
+          <%= image_tag post.user.get_profile_image(60,40), class: "mt-1 rounded-circle" %>
+            <%= link_to post_path(post.id) do %>
+               <strong><%= post.title %></strong>
+            <% end %>
+            <br>
+            説明：<%= post.body %>
+            <br>
+            <%= post.user.username %>  | 
+            <span><%= link_to "#{post.comments.count} コメント", post_path(post.id) %></span>
+            <br><br>
+        </div>
+      <% end %>
+    </div>
+</div>
+</div>
+    
+
+
+
+

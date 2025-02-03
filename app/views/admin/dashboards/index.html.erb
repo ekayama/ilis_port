@@ -1,0 +1,30 @@
+
+<div class="container">
+  <br>  
+  <div class="row d-flex justify-content-center">
+   <div class="col-8">
+   <h4>会員一覧</h4>
+    <br>
+      <table class="table">
+        <% @users.each do |user| %>
+          <thead>
+            <tr>
+              <th>氏名</th>
+              <th>メールアドレス</th>
+              <th>ステータス</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td><%= user.username %></td>
+            <td><%= user.email %></td>
+            <td></td>
+            <td><%= link_to '削除', admin_users_path(user), method: :delete, data: { confirm: '本当に削除しますか？' } %></td>
+          </tr>
+          </tbody>
+        <% end %>
+      </table>
+   </div>
+  </div>
+</div>

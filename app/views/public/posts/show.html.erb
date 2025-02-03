@@ -1,0 +1,82 @@
+<div id="error">
+<% if @comment.errors.any? %>
+<h3><%= @comment.errors.count %> errors prohibited this obj from being saved:</h3>
+<ul>
+  <% @comment.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+  <% end %>
+</ul>
+<% end %>
+
+<div class="p-3 m-3 font">
+<div class="container">
+  <br><br>
+  <%= link_to "Back", posts_path %>
+  <%= render "public/searches/form" %>
+  <%= image_tag @post.user.get_profile_image(70,70), class: "mt-1 rounded-circle" %>
+    <%= link_to user_path(@user) do %>
+      <%= @post.user.username %>
+    <% end %><br><br>
+
+    <div class="row">
+      <div class="col-md-12 col-lg-8">
+         <%= image_tag @post.get_image(730,730) %><br>
+         <div class="toukoubi">
+         投稿日:<%= @post.created_at.strftime('%Y/%m/%d') %>
+        </div>
+         <div class="font-saize">
+           <%= @post.title %>
+         </div>
+
+          <p>いいね表示予定</p>
+         本文:<%= @post.body %><br>
+         
+         <% if @post.user == current_user %>
+           <%= link_to "削除", post_path(@post), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+           <%= link_to "編集", edit_post_path(@post.id) %>
+         <% end %>
+      </div>
+
+      <div class="d-none d-lg-block d-xl-block col-lg-4">
+        <%= link_to new_post_path, class: 'dropdown-item nav-link text-black'  do %>
+          <i class="fa-solid fa-pen-to-square"></i> 投稿フォーム
+        <% end %>
+        <p>ランダムでおすすめが出てくるようにしてみたい</p>
+      </div>
+    </div>
+    <br>
+
+    <div class="row">
+      <div class="col-md-10 col-lg-10">
+        <div class="comment">
+            <p>Comment  | <%= "#{@post.comments.count} " %></p>
+            <% @post.comments.each do |comment| %>
+              <%= link_to user_path(comment.user) do %>
+                <%= image_tag comment.user.get_profile_image(50,50), class: "mt-1 rounded-circle" %>
+                <%= comment.user.username %><br>
+              <% end %>
+
+              <%= comment.comment %> | <span>
+              <% if comment.user == current_user %>
+              <%= link_to "削除", post_comment_path(@post, comment), method: :delete,
+                class: "btn btn-danger pull-right",
+                data: { confirm: "本当に削除しますか？" } %>
+                <!-- data: { confirm:　はセットで覚える -->
+                <!-- 今回コメントの削除を押すと投稿自体が消えたのはpost_comment_pathが post_pathになっていたから 
+                  post_pathのみだとコメント側の引数を渡せていないので、投稿自体の削除しか機能してなかった。rootsでポストとコメントのURL確認しっかりする -->
+              <% end %><br><br><br>
+            <% end %>
+
+            <%= form_with model: [@post, @comment], local: true do |f| %>
+              <%= f.text_area :comment, rows:'5', placeholder: "コメントをここに", class: "w-100" %>
+              <%= f.submit "送信" %>
+            <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

@@ -1,32 +1,59 @@
-<h2>Log in</h2>
 
+<div id="error">
+  <% if @user.errors.any? %>
+  <h3><%= @user.errors.count %> errors prohibited this obj from being saved:</h3>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+    <% end %>
+</div>
+
+<div class="p-3 mb-2">
+  <div class="container font">
+  <br>
+   <div class="row d-flex justify-content-center">
+   <div class="col-12 col-none-12 col-sm-12 col-md-12 col-lg-12">
+  <h2>Log in</h2>
+
+<table class="table">
  <%= form_with model: @user, url: user_session_path do |f| %>
+  <tr>
+  <th><%= f.label :username %><br /></th>
+  <td> <%= f.text_field :username, autofocus: true, autocomplete: "username" %></td>
+  </tr>
 
-  <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username, autofocus: true, autocomplete: "username" %>
-  </div>
+  <tr>
+  <th><%= f.label :email %><br /></th>
+   <td><%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
+   </tr>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+  <tr>
+  <th><%= f.label :password %><br /></th>
+  <td><%= f.password_field :password, autocomplete: "current-password" %></td>
+  </tr>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
+  <tr>
+  <th> </th>
+  <td>
   <% if devise_mapping.rememberable? %>
     <div class="field">
       <%= f.check_box :remember_me %>
       <%= f.label :remember_me %>
     </div>
   <% end %>
+  </td>
+  <tr>
+   <th> </th>
+    <td> <%= f.submit "Log in" %><br><%= render "users/shared/links" %></td>
+  </tr>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
+<% end %>  
+</table> 
+</div>
+</div>
+</div>
+</div>
 
-<%= render "users/shared/links" %>
+
