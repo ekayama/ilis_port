@@ -28,7 +28,7 @@
                 <% end %>
               </li>
               <li class="nav-item dropdown">
-                <%= link_to user_path(current_user.id), class: 'dropdown-item nav-link text-white' do %>
+                <%= link_to user_path(@users), class: 'dropdown-item nav-link text-white' do %>
                   <i class="fa-solid fa-house-user"></i> マイページ
                 <% end %>
               </li>
@@ -55,16 +55,7 @@
     <%= yield %>
   </main>
   <fotter>
-    <div class="container bg-info text-white centered-text">
-      <div class="row text-center">
-        <div class="col-12">
-          <div>
-            <br>
-            <p>© 2024 Your Company. All rights reserved.</p>
-          </div>
-        </div>
-      </div>
-    </div>
+
   </fotter>
 </body>
 </html>

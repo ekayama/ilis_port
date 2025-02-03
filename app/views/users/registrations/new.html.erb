@@ -1,34 +1,67 @@
+
+<div id="error">
+  <% if @user.errors.any? %>
+  <h3><%= @user.errors.count %> errors prohibited this obj from being saved:</h3>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+    <% end %>
+</div>
+
+<div class="p-3 m-2">
+  <div class="container font">
+  <br>
+   <div class="row d-flex justify-content-center">
+   <div class="col-12 col-none-12 col-sm-12 col-md-12 col-lg-8">
+
 <h2>Sign up</h2>
+
+<table class="table">
 
 <%= form_with model: @user, url: user_registration_path do |f| %>
   <%= render "users/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username, autocomplete: "username" %> 
-  </div>
+  <tr>
+  <th><%= f.label :username %><br /></th>
+  <td> <%= f.text_field :username, autocomplete: "username" %></td>
+  </tr>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+  <tr>
+  <th><%= f.label :email %><br /></th>
+  <td> <%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
+  </tr>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
+  <tr>
+  <th>
+  <%= f.label :password %>
+  <% if @minimum_password_length %>
+  <em>(<%= @minimum_password_length %> characters minimum)</em>
+  <% end %><br />
+  </th>
+  <td>
     <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+  </td>
+  </tr>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+  <tr>
+  <th><%= f.label :password_confirmation %><br /></th>
+  <td><%= f.password_field :password_confirmation, autocomplete: "new-password" %></td>
+  </tr>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
+  <tr>
+  <th></th>
+  <td><%= f.submit "Sign up" %><br><%= render "users/shared/links" %></td>
+  </tr>
+</table>
 <% end %>
+</div>
+</div>
+</div>
+</div>
 
-<%= render "users/shared/links" %>
+    
+
+
+

@@ -33,6 +33,7 @@ end
 
   namespace :admin do
     get 'dashboards', to: 'dashboards#index'
+    get 'dashboards', to: 'dashboards#show'
     resource :users, only: [:destroy]
   end
 end
