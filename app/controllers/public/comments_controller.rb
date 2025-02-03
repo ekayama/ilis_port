@@ -16,8 +16,9 @@ class Public::CommentsController < ApplicationController
       @user = @post.user
       @posts = @user.posts
       render 'posts/show'
-      <!-- 変数について、基本は必ず＠をつけて受け渡しできるようにする -->
-      <!-- コメントの引数にUserとPostがなかったので気を付ける -->
+      # 変数について、基本は必ず＠をつけて受け渡しできるようにする
+      # コメントの引数にUserとPostがなかったので気を付ける
+      # 
     end
   end
 
