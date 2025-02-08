@@ -23,7 +23,10 @@
             <br>
             説明：<%= post.body %>
             <br>
-            <%= post.user.username %>  | 
+            <%= post.user.username %> 
+            <br>
+
+            |
             <span><%= link_to "#{post.comments.count} コメント", post_path(post.id) %></span>
             <br><br>
         </div>

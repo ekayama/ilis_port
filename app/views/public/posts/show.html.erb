@@ -28,8 +28,10 @@
            <%= @post.title %>
          </div>
 
-          <p>いいね表示予定</p>
+       
+        <br>
          本文:<%= @post.body %><br>
+
          
          <% if @post.user == current_user %>
            <%= link_to "削除", post_path(@post), method: :delete, "data-confirm" => "本当に削除しますか？" %>

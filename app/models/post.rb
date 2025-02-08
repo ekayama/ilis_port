@@ -1,12 +1,16 @@
 class Post < ApplicationRecord
-  has_one_attached :image
   belongs_to :user
+  has_one_attached :image
   has_many :comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
 
   validates :title, presence: true, length:{maximum:400}
   validates :body, presence: true
   validates :image, presence: true
-  
+
+  def favorited_by?(user)
+    favorites.where(user_id: user.id).exists?
+  end
   
   def get_image(height, width)
     unless image.attached?

@@ -1,7 +1,27 @@
-<% @records.each do |user| %>
-ユーザー画像：<%= image_tag user.get_profile_image(100,100) %>
-ユーザーネーム：<%= link_to user_path(user) do %>
-  <%= user.username %><br>
-<% end %>
 
+
+<% @records.each do |user| %>
+  <br>
+  <%= image_tag user.get_profile_image(100,100) %>
+  <span>
+  <%= link_to user_path(user) do %>
+    <%= user.username %><br>
+  <% end %>
+    <br>
+    follows
+      <%= link_to user.followings.count, user_followings_path(user) %>
+    followers
+      <%= link_to user.followers.count, user_followers_path(user) %>
+
+
+<div class='row'>
+  <% if current_user != user %>
+    <td><%= render "public/relationships/btn", user: user %></td><br>
+  <% else %>
+    <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block edit_user_#{user.id}" do %>
+      <i class="fas fa-user-cog"></i>
+      <br>
+    <% end %>
+  <% end %>
+</div>
 <% end %>

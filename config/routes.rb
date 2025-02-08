@@ -16,13 +16,18 @@ Rails.application.routes.draw do
 
   resources :posts, only: [:new, :create, :destroy, :index, :show, :edit, :update] do
     resources :comments, only: [:index, :show, :create, :destroy, :update]
+    resources :favorites, only: [:create, :destroy]
   end
   
-  resources :users, only: [:mypage, :show, :destroy, :update, :edit, :index]
+  resources :users, only: [:mypage, :show, :destroy, :update, :edit, :index] do
+    resource :relationships, only: [:create, :destroy]
+    get 'followings' => 'relationships#followings', as: 'followings'
+    get 'followers' => 'relationships#followers', as: 'followers'
+  end
+
   resources :posts_type, only: [:index, :show, :create, :destroy, :update]
   resources :chats, only: [:create, :destroy, :index, :show]
   resources :bookmarks, only: [:create, :destroy]
-  resources :favorite, only: [:create, :destroy]
   resources :follows, only: [:create, :destroy, :followings, :followers]
 end
   
