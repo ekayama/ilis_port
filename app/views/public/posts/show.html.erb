@@ -31,7 +31,7 @@
        
         <br>
          本文:<%= @post.body %><br>
-
+          <%= render "public/favorites/btn", post: @post %>
          
          <% if @post.user == current_user %>
            <%= link_to "削除", post_path(@post), method: :delete, "data-confirm" => "本当に削除しますか？" %>
@@ -40,7 +40,7 @@
       </div>
 
       <div class="d-none d-lg-block d-xl-block col-lg-4">
-        <%= link_to new_post_path, class: 'dropdown-item nav-link text-black'  do %>
+        <%= link_to new_post_path, class: 'dropdown-item nav-link text-black' do %>
           <i class="fa-solid fa-pen-to-square"></i> 投稿フォーム
         <% end %>
         <p>ランダムでおすすめが出てくるようにしてみたい</p>

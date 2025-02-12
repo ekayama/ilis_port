@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_02_08_030056) do
+ActiveRecord::Schema.define(version: 2025_02_11_075324) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -61,8 +61,7 @@ ActiveRecord::Schema.define(version: 2025_02_08_030056) do
   end
 
   create_table "chats", force: :cascade do |t|
-    t.integer "senders_id"
-    t.integer "receiver_id"
+    t.integer "user_id"
     t.text "chat_content"
     t.integer "room_id"
     t.boolean "read_flag", default: false, null: false
@@ -117,6 +116,18 @@ ActiveRecord::Schema.define(version: 2025_02_08_030056) do
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
     t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "user_rooms", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.integer "room_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -1,6 +1,6 @@
 <div class="p-3 m-3 font">
   <div class="container">
-
+     <%= link_to "ログイン", new_user_session_path %>
      <br>
      <%= link_to new_post_path, class: 'dropdown-item nav-link text-black'  do %>
        <i class="fa-solid fa-pen-to-square"></i> 投稿フォーム
@@ -26,10 +26,15 @@
             <% end %>
           <% end %>
 
+          <br>
+            <%= link_to "チャットルームへ", chat_path(@user)%>
+
+
           <% if @user == current_user %>
             <p><%= link_to "プロフィール編集", edit_user_path %></p>
           <% end %>
        <br>
+       <%= link_to "いいね一覧", user_favorites_path(@user) %>
 
        <!-- 投稿一覧 -->
        <h5>過去の投稿</h5>
