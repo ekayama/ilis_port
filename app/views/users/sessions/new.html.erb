@@ -17,8 +17,8 @@
    <div class="col-12 col-none-12 col-sm-12 col-md-12 col-lg-12">
   <h2>Log in</h2>
 
+<%= form_with model: @user, url: user_session_path do |f| %>
 <table class="table">
- <%= form_with model: @user, url: user_session_path do |f| %>
   <tr>
   <th><%= f.label :username %><br /></th>
   <td> <%= f.text_field :username, autofocus: true, autocomplete: "username" %></td>
@@ -49,8 +49,8 @@
     <td> <%= f.submit "Log in" %><br><%= render "users/shared/links" %></td>
   </tr>
 
+  </table> 
 <% end %>  
-</table> 
 </div>
 </div>
 </div>

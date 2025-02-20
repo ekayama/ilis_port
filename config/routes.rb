@@ -24,6 +24,11 @@ Rails.application.routes.draw do
     resources :favorites, only: [:index]
     get 'followings' => 'relationships#followings', as: 'followings'
     get 'followers' => 'relationships#followers', as: 'followers'
+
+    member do
+      patch 'release'
+      patch 'nonrelease'
+    end
   end
 
   resources :posts_type, only: [:index, :show, :create, :destroy, :update]

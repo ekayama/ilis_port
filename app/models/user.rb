@@ -9,10 +9,12 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_one_attached :profile_image
-  has_many :posts, through: :favorites
+  #has_many :posts, through: :favorites
   has_many :user_rooms
   has_many :chats
   has_many :rooms, through: :user_rooms
+
+  enum status:{nonreleased: 0, released: 1}
 
   # 自分がフォローされる（被フォロー）側の関係性
   has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy

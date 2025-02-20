@@ -4,6 +4,18 @@ class Public::UsersController < ApplicationController
   def mypage
   end
 
+  def release
+    @user =  User.find(params[:id])
+    @user.released! unless @user.released?
+    redirect_to edit_user_path(@user), notice: 'このアカウントを公開しました'
+  end
+
+  def nonrelease
+    @user =  User.find(params[:id])
+    @user.nonreleased! unless @user.nonreleased?
+    redirect_to edit_user_path(@user), notice: 'このアカウントを非公開にしました'
+  end
+
   def edit
     @user = User.find(params[:id])
     unless @user.id == current_user.id
@@ -15,12 +27,13 @@ class Public::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @posts = @user.posts
+    #@posts = Post.where(user_id: @user.id)
   end
 
   def index
     @users = User.all
     @post = Post.new
-    
+    @posts = Post.all
   end
 
   def update

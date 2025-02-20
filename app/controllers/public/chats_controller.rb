@@ -21,10 +21,10 @@ class Public::ChatsController < ApplicationController
   def create
     @chat = current_user.chats.new(chat_params)
     if @chat.save
-      redirect_to chat_path(@chat.room), notice: 'メッセージが送信されました。'
+      redirect_back fallback_location: root_path, notice: 'メッセージが送信されました。'
     else
-      redirect_to chat_path(@chat.room), alert: 'メッセージの送信に失敗しました。'
-    end  
+      redirect_back fallback_location: root_path, alert: 'メッセージの送信に失敗しました。'
+    end
   end
 
   def index
@@ -35,7 +35,7 @@ class Public::ChatsController < ApplicationController
 
   private
   def chat_params
-    params.require(:chat).permit(:chat_content, :room_id)
+    params.require(:chat).permit(:message, :room_id, )
   end
 
   def reject_non_related

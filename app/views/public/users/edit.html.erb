@@ -41,6 +41,16 @@
               <td><%= f.text_field :email, default: "", null: false, placeholder: "メールアドレス" %></td>
             </tr>
             <tr>
+              <th>公開・非公開</th>
+              <td>
+                <% if @user.released? %>
+                  <%= link_to '非公開にする', nonrelease_user_path(@user),  method: :patch %>
+                <% else %>
+                  <%= link_to '公開する', release_user_path(@user), method: :patch %>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
               <td> </td>
               <td><%= f.submit "変更を保存" %> <%= link_to "Back", user_path(@user.id) %></td>
             </tr>
