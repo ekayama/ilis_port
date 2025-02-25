@@ -46,6 +46,7 @@ end
   namespace :admin do
     get 'dashboards', to: 'dashboards#index'
     get 'dashboards', to: 'dashboards#show'
-    resource :users, only: [:destroy]
+    resources :users, only: [:show, :index, :update, :destroy]
+    root to: "homes#top"
   end
 end

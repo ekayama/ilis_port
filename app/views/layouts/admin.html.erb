@@ -28,8 +28,8 @@
                 <% end %>
               </li>
               <li class="nav-item dropdown">
-                <%= link_to user_path(@users), class: 'dropdown-item nav-link text-white' do %>
-                  <i class="fa-solid fa-house-user"></i> マイページ
+                <%= link_to  admin_dashboards_path, class: 'dropdown-item nav-link text-white' do %>
+                  <i class="fa-solid fa-house-user"></i> 会員一覧
                 <% end %>
               </li>
               <li class="nav-item dropdown">
@@ -38,7 +38,7 @@
                 <% end %>
               </li>
               <li class="nav-item dropdown">
-                <%= link_to destroy_admin_session_path, method: :delete, class: 'dropdown-item nav-link text-white' do %>
+                <%= link_to destroy_admin_session_path, class: 'dropdown-item nav-link text-white' do %>
                   <i class="fa-solid fa-pen-to-square"></i> ログアウト
                 <% end %>
               </li>

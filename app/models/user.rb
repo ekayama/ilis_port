@@ -5,6 +5,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   
+  scope :active_users, -> { where(status: 1, is_deleted: false) }
+        
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
@@ -29,8 +31,10 @@ class User < ApplicationRecord
 
 
   validates :email, uniqueness: true, presence: true, length: { minimum: 2 }
-  # validates :username, presence: true, uniqueness: true, length: { maximum: 20 }
+  validates :username, presence: true, uniqueness: true, length: { maximum: 20 }
   validates :profile_description, length: { maximum: 50 }
+
+
   
 
 

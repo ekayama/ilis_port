@@ -15,6 +15,7 @@ class Public::FavoritesController < ApplicationController
   end 
  
   def index
+    #byebug　↓ここ編集
     @posts = current_user.posts
   end
 

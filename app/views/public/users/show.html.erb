@@ -9,61 +9,64 @@
      <br>
 
      <div class="body">
-      <!-- ユーザーの詳細 -->
-      <% if current_user != @user && @user.nonreleased? %>
-        <h1>非公開です...</h1>
-      <% else %>
-      <!-- 編集画面の遷移リンク表示有無 -->
-          <h3><%= @user.username %></h3>
-           <%= image_tag @user.get_profile_image(80,80), class: "mt-1 rounded-circle" %>
-           自己紹介：<%= @user.profile_description %>
-           <br>
-           <td>フォロー数: <%= link_to @user.followings.count, user_followings_path(@user) %></td>
-           <td>フォロワー数: <%= link_to @user.followers.count, user_followers_path(@user) %></td>
-    
-           <% if current_user != @user%>
-             <% if current_user.following?(@user) %>
-               <%= link_to "フォロー外す", user_relationships_path(@user.id), method: :delete %>
-             <% else %><span>
-               <%= link_to "フォローする", user_relationships_path(@user.id), method: :post %>
-             <% end %>
+     <!-- ユーザーの詳細 -->
+       <% if current_user != @user && @user.nonreleased? %>
+         <!-- 非公開ユーザーの表示 -->
+         <h3><%= @user.username %><i class="fa-solid fa-lock"></i></h3>
+         <h3>非公開です...</h3>
+       <% else %>
+         <!-- ユーザーの詳細表示 -->
+         <h3>
+           <%= @user.username %>
+             <% if @user.nonreleased? %>
+               <i class="fa-solid fa-lock"></i>
+            <% end %>
+         </h3>
+         <%= image_tag @user.get_profile_image(80,80), class: "mt-1 rounded-circle" %>
+         自己紹介：<%= @user.profile_description %>
+         <br>
+         <td>フォロー数: <%= link_to @user.followings.count, user_followings_path(@user) %></td>
+         <td>フォロワー数: <%= link_to @user.followers.count, user_followers_path(@user) %></td>
+         <br>
+         <% if current_user != @user %>
+           <% if current_user.following?(@user) %>
+             <%= link_to "フォロー外す", user_relationships_path(@user.id), method: :delete %>
+           <% else %>
+             <%= link_to "フォローする", user_relationships_path(@user.id), method: :post %>
            <% end %>
- 
-           <br>
-           <% if current_user != @user && current_user.following?(@user) && @user.following?(current_user) %>
-             <%= link_to "チャットルームへ", chat_path(@user)%>
-           <% end %>
- 
- 
-           <% if @user == current_user %>
-             <p><%= link_to "プロフィール編集", edit_user_path %></p>
-           <% end %>
+         <% end %>
+        <br>
+        <% if current_user != @user && current_user.following?(@user) && @user.following?(current_user) %>
+          <%= link_to "チャットルームへ", chat_path(@user) %>
+        <% end %>
+        <% if @user == current_user %>
+          <p><%= link_to "プロフィール編集", edit_user_path %></p>
+        <% end %>
         <br>
         <%= link_to "いいね一覧", user_favorites_path(@user) %>
- 
+
         <!-- 投稿一覧 -->
         <h5>過去の投稿</h5>
         <br>
-          <div class="row d-lg-flex flex-wrap">
-              <% @posts.each do |post| %>
-                <div class="col-md-5 col-lg-4">
-                 <%= image_tag post.get_image(300,300) %><br>
-                 <%= post.title %><br>
-                 <!-- <%= post.body %> -->
-                 <!-- <br>ユーザー：<%= post.user.username %> -->
-                  <%= render "public/favorites/btn", post: post %> |
-                  <%= link_to "#{post.comments.count} コメント", post_path(post.id) %><br>
- 
-                  <% if post.user == current_user %>
-                    <%= link_to "削除", post_path(post), method: :delete, "data-confirm" => "本当に削除しますか？" %>
-                    <%= link_to "編集",  edit_post_path(post.id) %>
-                  <% end %><br><br>
-                </div>
-               <% end %>
-          </div>
-      <% end %>
+        <div class="row d-lg-flex flex-wrap">
+           <% @posts.each do |post| %>
+             <div class="col-md-5 col-lg-4">
+               <%= image_tag post.get_image(300,300) %><br>
+               <%= post.title %><br>
+               <!-- <%= post.body %> -->
+               <!-- <br>ユーザー：<%= post.user.username %> -->
+               <%= render "public/favorites/btn", post: post %> |
+               <%= link_to "#{post.comments.count} コメント", post_path(post.id) %><br>
+               <% if post.user == current_user %>
+                 <%= link_to "削除", post_path(post), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+                 <%= link_to "編集", edit_post_path(post.id) %>
+               <% end %><br><br>
+             </div>
+           <% end %>
+        </div>
+       <% end %>
      </div>
-  </div>
+  <div>
 </div>
 
 

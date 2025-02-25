@@ -1,6 +1,7 @@
 class Public::UsersController < ApplicationController
   before_action :is_matching_login_user, only: [:edit, :update, :index]
-  
+  before_action :reject_deleted_user, only: [:show]
+
   def mypage
   end
 
@@ -21,7 +22,6 @@ class Public::UsersController < ApplicationController
     unless @user.id == current_user.id
       redirect_to new_user_session_path
     end
-   
   end
 
   def show
@@ -55,8 +55,6 @@ class Public::UsersController < ApplicationController
     redirect_to new_user_registration_path
   end
 
-
-
   private
 
   def user_params
@@ -70,6 +68,10 @@ class Public::UsersController < ApplicationController
     unless user.id == current_user.id
       redirect_to user_path(current_user)
     end
-  end 
+  end
 
+  def reject_deleted_user
+    @user = User.find(params[:id])
+    redirect_to root_path if @user.is_deleted
+  end
 end

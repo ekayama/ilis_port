@@ -8,9 +8,9 @@ def search
   
   # 選択したモデルに応じて検索を実行
   if @model  == "user"
-    @records = User.search_for(@content, @method)
+    @records = User.active_users.search_for(@content, @method)
   else
-    @records = Post.search_for(@content, @method)
+    @records = Post.active_posts.search_for(@content, @method)
   end
  end
 end

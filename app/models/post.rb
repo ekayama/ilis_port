@@ -8,6 +8,8 @@ class Post < ApplicationRecord
   validates :body, presence: true
   validates :image, presence: true
 
+  scope :active_posts, -> { joins(:user).where(user:  {status: 1, is_deleted: false}) }
+
   def favorited_by?(user)
     favorites.where(user_id: user.id).exists?
   end
