@@ -1,26 +1,44 @@
-<h1 id="room" data-room="<%= @room.id %>" data-user="<%= current_user.id %>"><%= @user.username %> さんとのチャット</h1>
-
-<div class="message" style="width: 400px;">
-  <% @chats.each do |chat| %>
-    <% if chat.user_id == current_user.id %>
-      <p style="text-align: right;"><%= chat.message %></p>
-    <% else %>
-      <p style="text-align: left;"><%= chat.message %></p>
-    <% end %>
-  <% end %>
-</div>
-
 <div id="error">
 <% if @chat.errors.any? %>
-<h3><%= @chat.errors.count %> errors prohibited this obj from being saved:</h3>
-<ul>
-  <% @chat.errors.full_messages.each do |message| %>
-    <li><%= message %></li>
-  <% end %>
-</ul>
+  <h3><%= @chat.errors.count %> errors prohibited this obj from being saved:</h3>
+  <ul>
+    <% @chat.errors.full_messages.each do |message| %>
+     <li><%= message %></li>
+    <% end %>
+  </ul>
 <% end %>
 
-<%= form_with model: @chat, data: {remote: true} do |f| %>
-  <%= f.text_field :message %>
-  <%= f.hidden_field :room_id %>
-<% end %>
+<div class="container mt-5 d-flex justify-content-center font">
+  <div class="row  text-center">
+    <div class="col-12 col-md-12 col-lg-12 pt-2 align-self-center">
+      <div class="border-bottom border-secondary">
+        <h3 id="room" data-room="<%= @room.id %>" data-user="<%= current_user.id %>"><%= @user.username %> さんとのチャット</h3>
+      </div>
+      <br>
+        <div class="message" style="width: 700px;">
+          <% @chats.each do |chat| %>
+            <% if chat.user_id == current_user.id %>
+              <div class="d-flex justify-content-end border-bt">
+                <p style="text-align: right;"><%= chat.message %></p>
+                <%= image_tag current_user.get_profile_image(40, 40), class: "ml-2 rounded-circle" %>
+              </div><br>
+            <% else %>
+              <div class="d-flex justify-content-start border-bt">
+                <%= image_tag chat.user.get_profile_image(40, 40), class: "mr-2 rounded-circle" %>
+                <p style="text-align: left;"><%= chat.message %></p>
+              </div><br>
+            <% end %>
+          <% end %>
+        </div><br>
+
+        <%= form_with model: @chat, data: {remote: true} do |f| %>
+          <%= f.text_field :message %>
+          送信
+          <%= f.hidden_field :room_id %>
+        <% end %>
+        <br>
+      </div>
+     </div>
+    </div>
+  </div>
+</div>

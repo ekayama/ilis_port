@@ -48,15 +48,17 @@
         <!-- 投稿一覧 -->
         <h5>過去の投稿</h5>
         <br>
-        <div class="row d-lg-flex flex-wrap">
+        <div class="row d-lg-flex flex-wrap text-center">
            <% @posts.each do |post| %>
-             <div class="col-md-5 col-lg-4">
-               <%= image_tag post.get_image(300,300) %><br>
+             <div class="col-sm-6 col-md-5 col-lg-4 pt-3 user-card mb-4 border shadow-sm text-left">
+               <%= image_tag post.get_image(300,300), class: "mt-1 rounded" %><br><br>
                <%= post.title %><br>
                <!-- <%= post.body %> -->
                <!-- <br>ユーザー：<%= post.user.username %> -->
                <%= render "public/favorites/btn", post: post %> |
-               <%= link_to "#{post.comments.count} コメント", post_path(post.id) %><br>
+               <%= link_to "#{post.comments.count} コメント", post_path(post.id) %>
+               <i class="fa-regular fa-comment"></i>
+               <br>
                <% if post.user == current_user %>
                  <%= link_to "削除", post_path(post), method: :delete, "data-confirm" => "本当に削除しますか？" %>
                  <%= link_to "編集", edit_post_path(post.id) %>

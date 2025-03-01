@@ -1,15 +1,29 @@
-<% @records.each do |post| %>
-  <div>
-  <%= link_to post_path(post) do %>
-    <%= image_tag post.get_image(400, 400) %>
-  <% end %><br><br>
-  <p>投稿ユーザー画像：<%= image_tag post.user.get_profile_image(100,100) %></p>
-  <p>タイトル：<%= link_to post_path(post.id) do %>
-     <%= post.title %>
-  <% end %></p>
-  <p>説明：<%= post.body %></p>
-  
-  </div>
-    ユーザーネーム：<%= post.user.username %><br>
 
-<% end %>
+<div class="container d-flex justify-content-center shadow font">
+  <div class="row  text-center">
+    <div class="col-12 col-md-12 col-lg-12 pt-3 align-self-center">
+      <% @records.each do |post| %>
+        <div class="border-bottom border-secondary">
+          <%= link_to post_path(post) do %>
+            <%= image_tag post.get_image(350, 350), class: "rounded border border-secondary border-5", alt: "20" %>
+          <% end %><br>
+          <%= image_tag post.user.get_profile_image(60,100), class: "mt-1 rounded-circle" %>
+          <%= post.user.username %> 
+          <br>
+          <%= link_to post_path(post.id) do %>
+            <strong><%= post.title %></strong>
+          <% end %> :
+          <%= post.body %>
+          <br><br>
+        </div>
+       <br>
+      <% end %>
+      <div class="d-flex justify-content-center w-100">
+        <%= paginate @records, theme: 'bootstrap-5' %>
+      </div>
+    </div> 
+  </div>
+</div>
+
+
+

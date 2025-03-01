@@ -18,6 +18,6 @@ class Public::RelationshipsController < ApplicationController
 
   def followers
     user = User.find(params[:user_id])
-    @records = user.followers
+    @records = user.followers.page(params[:page]).per(5)
   end
 end

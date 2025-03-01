@@ -1,27 +1,27 @@
 
-
-<% @records.each do |user| %>
-  <br>
-  <%= image_tag user.get_profile_image(100,100) %>
-  <span>
-  <%= link_to user_path(user) do %>
-    <%= user.username %><br>
-  <% end %>
-    <br>
-    follows
-      <%= link_to user.followings.count, user_followings_path(user) %>
-    followers
-      <%= link_to user.followers.count, user_followers_path(user) %>
-
-
-<div class='row'>
-  <% if current_user != user %>
-    <td><%= render "public/relationships/btn", user: user %></td><br>
-  <% else %>
-    <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block edit_user_#{user.id}" do %>
-      <i class="fas fa-user-cog"></i>
-      <br>
-    <% end %>
-  <% end %>
+<div class="container d-flex justify-content-center shadow font">
+  <div class="row  text-center">
+    <div class="col-12 col-md-12 col-lg-12 pt-3 align-self-center">
+      <% @records.each do |user| %>
+        <div class="user-card mb-4 border-bottom border-secondary ">
+          <%= image_tag user.get_profile_image(150,150), class: "mt-3 mb-2 rounded-circle img-fluid" %>
+          <h5 class="mt-2"><%= link_to user.username, user_path(user) %></h5>
+          <p class="follows-count mt-1 shadow">
+            follows: <%= link_to user.followings.count, user_followings_path(user) %> |
+            followers: <%= link_to user.followers.count, user_followers_path(user) %>
+          </p>
+          
+          <% if current_user != user %>
+            <%= render "public/relationships/btn", user: user %><br><br>
+          <% else %>
+            <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block mt-2 edit_user_#{user.id}" do %>
+              <i class="fas fa-user-cog"></i>Edit Profile
+            <% end %><br>
+          <% end %>
+        </div>
+      <% end %>
+      <%= paginate @records, theme: 'bootstrap-5' %>
+    </div>
+  </div>
 </div>
-<% end %>
+

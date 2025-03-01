@@ -51,7 +51,10 @@
     <div class="row">
       <div class="col-md-10 col-lg-10">
         <div class="comment">
-            <p>Comment  | <%= "#{@post.comments.count} " %></p>
+            <p>
+              Comennt <i class="fa-regular fa-comment"></i>
+          |   <%= "#{@post.comments.count} " %>
+            </p>
             <% @post.comments.each do |comment| %>
               <%= link_to user_path(comment.user) do %>
                 <%= image_tag comment.user.get_profile_image(50,50), class: "mt-1 rounded-circle" %>
