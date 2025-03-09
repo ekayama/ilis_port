@@ -17,7 +17,9 @@ class Public::PostsController < ApplicationController
   
     def index
       @posts = Post.active_posts.page(params[:page]).per(12)
+
     end
+    
   
     def show
       @post = Post.find(params[:id])
@@ -54,7 +56,7 @@ class Public::PostsController < ApplicationController
     private
   
     def post_params
-      params.require(:post).permit(:users_id, :posts_type_id, :image, :title, :body, :media_url)
+      params.require(:post).permit(:users_id, :posts_type_id, :title, :body, :media_url, images: [])
     end
 
     def ensure_correct_user

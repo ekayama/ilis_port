@@ -1,75 +1,153 @@
+
 <div class="p-3 m-3 font">
-  <div class="container">
-     <%= link_to "ログイン", new_user_session_path %>
-     <br>
-     <%= link_to new_post_path, class: 'dropdown-item nav-link text-black'  do %>
-       <i class="fa-solid fa-pen-to-square"></i> 投稿フォーム
-     <% end %>
-     <%= render "public/searches/form" %>
-     <br>
+  <div class="container pt-3">
+    <div class="list">
+      <ul class="list-inline">
+        <li class="list-inline-item">
+          <%= link_to user_path(current_user.id), class: 'text-dark' do %>
+            <i class="fa-solid fa-house-user"></i> マイページ
+          <% end %>
+        </li>
+        <li class="list-inline-item">
+          <%= link_to posts_path, class: 'text-dark' do %>
+            <i class="fa-solid fa-images"></i> 投稿一覧
+          <% end %>
+        </li>
+        <li class="list-inline-item">
+          <%= link_to new_post_path, class: 'text-dark' do %>
+            <i class="fa-solid fa-pen-to-square"></i> 投稿フォーム
+          <% end %>
+        </li>
+      </ul>
+    </div>
+
+    <div class="border-bottom mb-4">
+      <%= render "public/searches/form" %>
+    </div>
 
      <div class="body">
      <!-- ユーザーの詳細 -->
-       <% if current_user != @user && @user.nonreleased? %>
-         <!-- 非公開ユーザーの表示 -->
-         <h3><%= @user.username %><i class="fa-solid fa-lock"></i></h3>
-         <h3>非公開です...</h3>
-       <% else %>
-         <!-- ユーザーの詳細表示 -->
-         <h3>
-           <%= @user.username %>
-             <% if @user.nonreleased? %>
-               <i class="fa-solid fa-lock"></i>
-            <% end %>
-         </h3>
-         <%= image_tag @user.get_profile_image(80,80), class: "mt-1 rounded-circle" %>
-         自己紹介：<%= @user.profile_description %>
-         <br>
-         <td>フォロー数: <%= link_to @user.followings.count, user_followings_path(@user) %></td>
-         <td>フォロワー数: <%= link_to @user.followers.count, user_followers_path(@user) %></td>
-         <br>
-         <% if current_user != @user %>
-           <% if current_user.following?(@user) %>
-             <%= link_to "フォロー外す", user_relationships_path(@user.id), method: :delete %>
-           <% else %>
-             <%= link_to "フォローする", user_relationships_path(@user.id), method: :post %>
-           <% end %>
-         <% end %>
-        <br>
-        <% if current_user != @user && current_user.following?(@user) && @user.following?(current_user) %>
-          <%= link_to "チャットルームへ", chat_path(@user) %>
-        <% end %>
-        <% if @user == current_user %>
-          <p><%= link_to "プロフィール編集", edit_user_path %></p>
-        <% end %>
-        <br>
-        <%= link_to "いいね一覧", user_favorites_path(@user) %>
-
-        <!-- 投稿一覧 -->
-        <h5>過去の投稿</h5>
-        <br>
-        <div class="row d-lg-flex flex-wrap text-center">
-           <% @posts.each do |post| %>
-             <div class="col-sm-6 col-md-5 col-lg-4 pt-3 user-card mb-4 border shadow-sm text-left">
-               <%= image_tag post.get_image(300,300), class: "mt-1 rounded" %><br><br>
-               <%= post.title %><br>
-               <!-- <%= post.body %> -->
-               <!-- <br>ユーザー：<%= post.user.username %> -->
-               <%= render "public/favorites/btn", post: post %> |
-               <%= link_to "#{post.comments.count} コメント", post_path(post.id) %>
-               <i class="fa-regular fa-comment"></i>
-               <br>
-               <% if post.user == current_user %>
-                 <%= link_to "削除", post_path(post), method: :delete, "data-confirm" => "本当に削除しますか？" %>
-                 <%= link_to "編集", edit_post_path(post.id) %>
-               <% end %><br><br>
+        <% if current_user != @user && @user.nonreleased? %>
+          <!-- 非公開ユーザーの表示 -->
+          <h3><%= link_to user_path(@user), class: "mx-2" do %>
+            <u><%= @post.user.username %></u>
+          <% end %>
+          <i class="fa-solid fa-lock"></i></h3>
+          <h3>非公開です...</h3>
+        <% else %>
+           <div class="container py-4">
+          <!-- ユーザー情報表示 -->
+            <div class="d-flex align-items-center">
+            <!-- ユーザーアイコン -->
+              <%= image_tag @user.get_profile_image(150, 150), 
+              class: "rounded-circle shadow-sm me-3", 
+              style: "width: 70px; height: 70px; object-fit: cover;" %>    
+              <!-- ユーザー名と非公開アイコン -->
+              <div>
+                <h4 class="ml-2"><strong><%= @user.username %></strong></h4>
+                <% if @user.nonreleased? %>
+                  <small class="text-muted"><i class="fa-solid fa-lock"></i> 非公開</small>
+                <% end %>
              </div>
-           <% end %>
-        </div>
-       <% end %>
-     </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center pt-4">
+              <!-- フォロワー数 -->
+              <div class="text-muted">
+                <span>follow: <%= link_to @user.followings.count, user_followings_path(@user), class: "text-primary" %></span> |
+                <span>follower: <%= link_to @user.followers.count, user_followers_path(@user), class: "text-primary" %></span>
+              </div>
+
+              <!-- アクションボタン -->
+              <div>
+                <%= link_to user_favorites_path(@user), class: "btn btn-info btn-sm rounded-pill me-2" do %>
+                  <i class="fa-solid fa-heart"></i> いいね一覧
+                <% end %>
+                <% if current_user != @user && current_user.following?(@user) && @user.following?(current_user) %>
+                  <%= link_to chat_path(@user), class: "btn btn-secondary btn-sm rounded-pill me-2" do %>
+                    <i class="fa-solid fa-comments"></i> チャットルームへ
+                  <% end %>
+                <% end %>
+                <% if @user == current_user %>
+                  <%= link_to edit_user_path, class: "btn btn-secondary btn-sm rounded-pill" do %>
+                    <i class="fa-solid fa-user-gear"></i> プロフィール設定
+                  <% end %>
+                <% end %>
+                <% if current_user.following?(@user) %>
+                  <%= link_to "フォロー中", user_relationships_path(@user.id), method: :delete, 
+                  class: "btn btn-outline-secondary btn-sm rounded-pill me-2" %>
+                <% else %>
+                  <%= link_to "フォローする", user_relationships_path(@user.id), method: :post, 
+                  class: "btn btn-outline-primary btn-sm rounded-pill me-2" %>
+                <% end %>
+              </div>
+            </div>
+
+            <% if @user.profile_description.present? %>
+              <!-- プロフィール詳細 -->
+              <h5 class="pt-4">~profile~</h5>
+              <p class="text-muted"><%= @user.profile_description %></p>
+              <div class="border-bottom pb-3 mb-3"></div>
+            <% end %>
+           </div>
+
+           <h5>過去の投稿</h5>
+             <div class="row d-lg-flex flex-wrap text-center">
+               <% @posts.each do |post| %>
+                 <div class="col-sm-6 col-md-4 col-lg-4 pt-3 user-card mb-4">
+                   <div class="card p-4 shadow-lg border-0 mb-4" style="border-radius: 15px;">
+                     <!-- 投稿の画像 -->
+                     <% if post.images.attached? %>
+                       <%= link_to post_path(post) do %>
+                         <%= image_tag post.images.first.variant(resize_to_limit: [250, 250]).processed, class: "img-fluid rounded mb-3", style: "width: 100%; height: 200px; object-fit: cover; border-radius: 10px;" %>
+                       <% end %>
+                     <% else %>
+                       <p class="text-muted">画像がありません</p>
+                     <% end %>
+         
+                     <!-- 投稿の詳細 -->
+                     <div class=" " style="border-bottom: 1px solid #ddd; padding-bottom: 10px;">
+                       <!-- タイトルとユーザー情報 -->
+                       <div class=" text-muted  small">
+                         <%= link_to post_path(post.id), class: 'text-dark text-decoration-none' do %>
+                           <strong><%= post.title %></strong>
+                         <% end %>
+                         <br>
+                         <!-- Posted by: <%= post.user.username %><br> -->
+                         <!-- Title: <%= post.body %> -->
+                       </div>
+                     </div>
+         
+                     <!-- アクションボタン -->
+                     <div class="d-flex justify-content-between align-items-center">
+                       <%= render "public/favorites/btn", post: post %>
+                       <span>
+                         <%= link_to "#{post.comments.count} Commnet", post_path(post.id), class: "text-secondary text-decoration-none" %>
+                          <i class="fa-regular fa-comment ms-1"></i>
+                       </span>
+                     </div>
+                     <br>
+         
+                     <!-- 編集と削除リンク -->
+                     <% if post.user == current_user %>
+                       <div class="mt-2 w-100">
+                         <%= link_to "編集", edit_post_path(post.id), class: "btn btn-sm btn-info" %>
+                         <%= link_to "削除", post_path(post), method: :delete, class: "btn btn-sm btn-secondary", "data-confirm" => "本当に削除しますか？" %>
+                       </div>
+                     <% end %>
+                   </div>
+                 </div>
+               <% end %>
+             </div>     
+        <% end %>
+    </div>
   <div>
 </div>
+
+
+
+
+
 
 
 

@@ -1,44 +1,74 @@
 <div id="error">
-<% if @chat.errors.any? %>
-  <h3><%= @chat.errors.count %> errors prohibited this obj from being saved:</h3>
-  <ul>
-    <% @chat.errors.full_messages.each do |message| %>
-     <li><%= message %></li>
-    <% end %>
-  </ul>
-<% end %>
+  <% if @chat.errors.any? %>
+    <h3><%= @chat.errors.count %> errors prohibited this obj from being saved:</h3>
+    <ul>
+      <% @chat.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
 
-<div class="container mt-5 d-flex justify-content-center font">
-  <div class="row  text-center">
-    <div class="col-12 col-md-12 col-lg-12 pt-2 align-self-center">
-      <div class="border-bottom border-secondary">
-        <h3 id="room" data-room="<%= @room.id %>" data-user="<%= current_user.id %>"><%= @user.username %> さんとのチャット</h3>
+<div class="container mt-5 font">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-10">
+      <!-- チャットルームタイトル -->
+      <div class="border-bottom border-secondary mb-4 mt-3">
+        <h3 id="room" data-room="<%= @room.id %>" data-user="<%= current_user.id %>">
+          <%= @user.username %> さんとのチャット
+        </h3>
       </div>
-      <br>
-        <div class="message" style="width: 700px;">
-          <% @chats.each do |chat| %>
-            <% if chat.user_id == current_user.id %>
-              <div class="d-flex justify-content-end border-bt">
-                <p style="text-align: right;"><%= chat.message %></p>
-                <%= image_tag current_user.get_profile_image(40, 40), class: "ml-2 rounded-circle" %>
-              </div><br>
-            <% else %>
-              <div class="d-flex justify-content-start border-bt">
-                <%= image_tag chat.user.get_profile_image(40, 40), class: "mr-2 rounded-circle" %>
-                <p style="text-align: left;"><%= chat.message %></p>
-              </div><br>
-            <% end %>
+
+      <!-- メッセージ一覧 -->
+      <div class="message p-4" style="width: 100%; max-width: 1000px; border-radius: 10px;">
+        <% @chats.each do |chat| %>
+          <% if chat.user_id == current_user.id %>
+            <!-- 自分のメッセージ -->
+            <div class="d-flex justify-content-end mb-2">
+              <div class="text-end mr-2">
+                <p class="bg-primary text-white rounded p-2 mb-1" style="max-width: 100%; word-wrap: break-word;">
+                  <%= chat.message %>
+                </p>
+                <small class="text-muted d-block" style="text-align: right;">
+                  <%= chat.created_at.strftime('%Y/%m/%d %H:%M') %>
+                </small>
+              </div>
+              <%= link_to user_path(current_user) do %>
+                <%= image_tag current_user.get_profile_image(150, 150), 
+                  class: "ms-2 rounded-circle shadow-sm", 
+                  style: "width: 40px; height: 40px; object-fit: cover;" %>
+              <% end %>
+            </div>
+          <% else %>
+            <!-- 相手のメッセージ -->
+            <div class="d-flex justify-content-start mb-2">
+              <%= link_to user_path(chat.user) do %>
+                <%= image_tag chat.user.get_profile_image(150, 150), 
+                  class: "me-2 rounded-circle shadow-sm", 
+                  style: "width: 40px; height: 40px; object-fit: cover;" %>
+              <% end %>
+              <div class="text-start ml-2">
+                <p class="bg-secondary text-white rounded p-2 mb-1" style="word-wrap: break-word;">
+                  <%= chat.message %>
+                </p>
+                <small class="text-muted d-block" style="text-align: left;">
+                  <%= chat.created_at.strftime('%Y/%m/%d %H:%M') %>
+                </small>
+              </div>
+            </div>
           <% end %>
-        </div><br>
-
-        <%= form_with model: @chat, data: {remote: true} do |f| %>
-          <%= f.text_field :message %>
-          送信
-          <%= f.hidden_field :room_id %>
         <% end %>
-        <br>
       </div>
-     </div>
+
+      <!-- メッセージ送信フォーム -->
+      <%= form_with model: @chat, data: {remote: true}, class: "d-flex align-items-center mt-4 mb-5" do |f| %>
+        <div class="flex-grow-1 me-2">
+          <%= f.text_field :message, placeholder: "メッセージを入力", 
+            class: "form-control", style: "resize: none;" %>
+        </div>
+        <%= f.submit "送信", class: "btn btn-primary btn-sm rounded-pill " %>
+        <%= f.hidden_field :room_id %>
+      <% end %>
     </div>
   </div>
 </div>

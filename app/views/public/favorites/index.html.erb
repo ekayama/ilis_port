@@ -1,42 +1,78 @@
-
 <div class="p-3 m-3 font">
-<div class="container">
-     <br>
-     <%= link_to new_post_path, class: 'dropdown-item nav-link text-black'  do %>
-       <i class="fa-solid fa-pen-to-square"></i> 投稿フォーム
-     <% end %>
-     <%= render "public/searches/form" %>
-
-
-    <h2 class="index">いいね一覧</h2><br>
-    <div class="row d-lg-flex flex-wrap text-center">
-      <% @posts.each do |post| %>
-        <div class="col-sm-6 col-md-6 col-lg-3 pt-3 user-card mb-4 border shadow-sm text-left">
-          <%= link_to post_path(post) do %>
-            <%= image_tag post.get_image(250, 250), class: "mt-1 rounded" %>
+  <div class="container">
+    <!-- 戻るボタン -->
+    <%= link_to "Back", posts_path, class: "btn btn-sm btn-outline-secondary mb-3", style: "border-radius: 10px;" %>
+  
+    <!-- リンクの横並びリスト -->
+    <div class="list">
+      <ul class="list-inline">
+        <li class="list-inline-item">
+          <%= link_to user_path(current_user.id), class: 'text-dark' do %>
+            <i class="fa-solid fa-house-user"></i> マイページ
           <% end %>
-          <br>
-          <%= image_tag post.user.get_profile_image(60,40), class: "mt-1 rounded-circle" %>
-            <%= link_to post_path(post.id) do %>
-               <strong><%= post.title %></strong>
+        </li>
+        <li class="list-inline-item">
+          <%= link_to posts_path, class: 'text-dark' do %>
+            <i class="fa-solid fa-images"></i> 投稿一覧
+          <% end %>
+        </li>
+        <li class="list-inline-item">
+          <%= link_to new_post_path, class: 'text-dark' do %>
+            <i class="fa-solid fa-pen-to-square"></i> 投稿フォーム
+          <% end %>
+        </li>
+      </ul>
+    </div>
+
+    <%= render "public/searches/form" %>
+
+    <h4 class="pb-5">お気に入り一覧</h4>
+      <div class="row d-lg-flex flex-wrap text-center">
+        <% @posts.each do |post| %>
+          <div class="col-sm-6 col-md-4 col-lg-4 pt-3 user-card mb-4">
+            <div class="card p-4 shadow-lg border-0 mb-4" style="border-radius: 15px;">
+              <!-- 投稿の画像 -->
+              <%= link_to post_path(post) do %>
+                <%= image_tag post.get_image(250, 250), class: "img-fluid rounded mb-3", style: "width: 100%; height: 200px; object-fit: cover; border-radius: 10px;" %>
+              <% end %>
+        
+        <!-- 投稿の詳細 -->
+        <div class="d-flex align-items-center mb-3" style="border-bottom: 1px solid #ddd; padding-bottom: 10px;">
+          <!-- アイコン設定 -->
+          <div class="me-3">
+            <%= image_tag post.user.get_profile_image(40, 40), 
+            class: "rounded-circle shadow-sm", 
+            style: "width: 40px; height: 40px; object-fit: cover;" %>
+          </div>
+
+          <!-- 投稿者とタイトル -->
+          <div class="text-left text-muted ml-4 small">
+            <%= link_to post_path(post.id), class: 'text-dark text-decoration-none' do %>
+              <strong><%= post.title %></strong>
             <% end %>
             <br>
-            説明：<%= post.body %>
-            <br>
-            <%= post.user.username %> 
-            <br>
-
-             <%= render "public/favorites/btn", post: post %> |
-            <span>
-              <%= link_to "#{post.comments.count} コメント", post_path(post.id) %>
-              <i class="fa-regular fa-comment"></i>
-            </span>
-            <br><br>
+            Posted by: <%= post.user.username %><br>
+            Title: <%= post.body %>
+           </div>
         </div>
-      <% end %>
-    </div>
+
+        
+          <!-- ボタン部分 -->
+          <div class="d-flex justify-content-between align-items-center">
+            <%= render "public/favorites/btn", post: post %>
+            <span>
+              <%= link_to "#{post.comments.count} ", post_path(post.id), class: "text-secondary text-decoration-none" %>
+              <i class="fa-regular fa-comment ms-1"></i>
+            </span>
+          </div>
+        </div>
+        
+          </div>
+        <% end %>
+      </div>
+  </div>
 </div>
-</div>
+
     
 
 

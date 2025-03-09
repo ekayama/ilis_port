@@ -1,45 +1,39 @@
-
-
 <div class="p-3 m-2">
-  <div class="container font">
-  <br>
-   <div class="row d-flex justify-content-center">
-   <div class="col-12 col-none-12 col-sm-12 col-md-12 col-lg-8">
- <h2>Log in(管理者用)</h2><br>
+  <div class="container pt-3 font">
+    <div class="row d-flex justify-content-center">
+      <div class="col-12 col-none-12 col-sm-12 col-md-12 col-lg-8">
+        <h2>Log in(管理者用)</h2><br>
 
- <table class="table">
-  <%= form_with model: @admin, url: session_path(resource_name), local: true do |f| %>
-    <tr>
-  <th><%= f.label :email %><br /></th>
-  <td><%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
-  </tr>
-
-  <tr>
-  <th><%= f.label :password %><br /></th>
-  <td><%= f.password_field :password, autocomplete: "current-password" %></td>
-  </tr>
-
-  <tr>
-  <th><br /></th>
-  <td>
-  <% if devise_mapping.rememberable? %>
-  <div class="field">
-    <%= f.check_box :remember_me %>
-    <%= f.label :remember_me %>
+          <table class="table">
+            <%= form_with model: @admin, url: session_path(resource_name), local: true do |f| %>
+              <tr>
+                <th><%= f.label :email %><br /></th>
+                <td><%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
+              </tr>
+              <tr>
+                <th><%= f.label :password %><br /></th>
+                <td><%= f.password_field :password, autocomplete: "current-password" %></td>
+              </tr>
+              <tr>
+                <th><br /></th>
+                <td>
+                  <% if devise_mapping.rememberable? %>
+                    <div class="field">
+                      <%= f.check_box :remember_me %>
+                      <%= f.label :remember_me %>
+                    </div>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <th> </th>
+                <td><%= f.submit "Log in" %><br><%= render "admin/shared/links" %></td>
+              </tr>
+            <% end %>
+          </table>
+      </div>
+    </div>
   </div>
-<% end %>
-</td>
-  </tr>
-
-  <tr>
-  <th> </th>
-  <td><%= f.submit "Log in" %><br><%= render "admin/shared/links" %></td>
-  </tr>
-<% end %>
-</table>
-</div>
-</div>
-</div>
 </div>
 
 

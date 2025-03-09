@@ -1,43 +1,41 @@
-
-<div class="container">
-  <br>  
+<div class="container pt-3">
   <div class="row d-flex justify-content-center">
-   <div class="col-8">
-   <h4>会員一覧</h4>
-    <br>
-      <table class="table">
-        <% @users.each do |user| %>
-          <thead>
-            <tr>
-              <th>氏名</th>
-              <th>メールアドレス</th>
-              <th>ステータス</th>
-              <th>公開・非公開</th>
-            </tr>
-          </thead>
-          <tbody>
-          <tr>
-           <td><%= link_to user.username, admin_user_path(user) %></td>
-            <td><%= user.email %></td>
-            <td>
-            <% if user.is_deleted %>
-              <%= link_to '退会済み', admin_user_path(user), method: :patch, data: { confirm: '本当に復活しますか？' } %> 
-            <% else %>
-              <%= link_to 'アクティブ', admin_user_path(user), method: :delete, data: { confirm: '本当に削除しますか？' } %> 
-            <% end %>
-            </td>
-            <td>
-            <% if current_user != user && user.nonreleased? %>
-              非公開
-            <% else %>
-              公開
-            <% end %>
-            </td>
-          </tr>
-          </tbody>
-        <% end %>
-      </table>
-      <%= paginate @users, theme: 'bootstrap-5' %>
-   </div>
+    <div class="col-8">
+      <h4>会員一覧</h4>
+      <br>
+        <table class="table">
+          <% @users.each do |user| %>
+            <thead>
+              <tr>
+                <th>氏名</th>
+                <th>メールアドレス</th>
+                <th>ステータス</th>
+                <th>公開・非公開</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= link_to user.username, admin_user_path(user) %></td>
+                <td><%= user.email %></td>
+                <td>
+                  <% if user.is_deleted %>
+                    <%= link_to '退会済み', admin_user_path(user), method: :patch, data: { confirm: '本当に復活しますか？' } %> 
+                  <% else %>
+                    <%= link_to 'アクティブ', admin_user_path(user), method: :delete, data: { confirm: '本当に削除しますか？' } %> 
+                  <% end %>
+                </td>
+                <td>
+                  <% if current_user != user && user.nonreleased? %>
+                    非公開
+                  <% else %>
+                    公開
+                  <% end %>
+                </td>
+             </tr>
+            </tbody>
+          <% end %>
+        </table>
+        <%= paginate @users, theme: 'bootstrap-5' %>
+    </div>
   </div>
 </div>

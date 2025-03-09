@@ -28,6 +28,7 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
     @posts = @user.posts.page(params[:page]).per(8)
     #@posts = Post.where(user_id: @user.id)
+
   end
 
   def index

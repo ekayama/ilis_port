@@ -2,6 +2,7 @@ class Public::FavoritesController < ApplicationController
 
   def create
     @post = Post.find(params[:post_id])
+    # @user = User.find(params[:user_id])
     @favorites = current_user.favorites.new(post_id: @post.id)
     @favorites.save
     redirect_to request.referer

@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>IlisPort</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <script src="https://kit.fontawesome.com/2bd7263e69.js" crossorigin="anonymous"></script>
@@ -11,85 +11,84 @@
   </head>
   <body>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-dark">
+      <nav class="navbar navbar-dark">
         <div class="container">
           <a class="navbar-brand text-light" href="/">
             <span>Ilis_port</span>
           </a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="true" aria-label="Toggle navigation">
+          <button class="navbar-toggler" 
+                  type="button" 
+                  data-toggle="collapse" 
+                  data-target="#navbarNavDropdown" 
+                  aria-controls="navbarNavDropdown" 
+                  aria-expanded="true" 
+                  aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
-
-            <% #if user_signed_in? %>
-            <!-- 管理者としてログインしている場合のリンク -->
-            <% if current_user&.admin? %>
-              <li class="nav-item dropdown">
-                <%= link_to root_path, class: 'dropdown-item nav-link text-white' do %>
-                  <i class="fa-solid fa-house"></i> Home
-                <% end %>
-              </li>
-              <li class="nav-item dropdown">
-                <%= link_to about_path, class: 'dropdown-item nav-link text-white' do %>
-                  <i class="fa-solid fa-link"></i> About
-                <% end %>
-              </li>
-              <li class="nav-item dropdown">
-                <%= link_to new_user_session_path, class: 'dropdown-item nav-link text-white' do %>
-                  <i class="fa-solid fa-right-to-bracket"></i> ログイン
-                <% end %>
-              </li>
-            <% else %>
-              <!-- サインインしていない場合のリンク -->
-              <li class="nav-item dropdown">
-                <%= link_to user_path(current_user.id), class: 'dropdown-item nav-link text-white' do %>
-                  <i class="fa-solid fa-house-user"></i> マイページ
-                <% end %>
-              </li>
-              <li class="nav-item dropdown">
-                <%= link_to posts_path, class: 'dropdown-item nav-link text-white' do %>
-                  <i class="fa-solid fa-images"></i> 投稿一覧
-                <% end %>
-              </li>
-              <li class="nav-item dropdown">
-                <%= link_to new_post_path, class: 'dropdown-item nav-link text-white' do %>
-                  <i class="fa-solid fa-pen-to-square"></i> 投稿フォーム
-                <% end %>
-              </li>
-              <li class="nav-item dropdown">
-                <%= link_to destroy_user_session_path, class: 'dropdown-item nav-link text-white' do %>
-                  <!-- pathの後ろに「,」が無かったから、その後ろにあるclass〜doまでが同じURLとして読み込まれてリンクが変になってた。気を付ける -->
-                  <i class="fa-solid fa-pen-to-square"></i> ログアウト
-                <% end %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
-  
-  <main>
-    <% flash.each do |message_type, message| %>
-      <div class="flash-message <%= message_type %>"><%= message %></div>
-    <% end %>
-    <%= yield %>
-  </main>
-  
-  <footer>
-    <div class="container">
-      <div class="row m-5">
-        <div class="mx-auto">
-          <div>
-            <%= link_to "管理者専用", new_admin_session_path %>
+              <!-- 管理者としてログインしている場合のリンク -->
+              <% if current_user&.admin? %>
+                <li class="nav-item dropdown">
+                  <%= link_to root_path, class: 'dropdown-item nav-link text-white' do %>
+                    <i class="fa-solid fa-house"></i> Home
+                  <% end %>
+                </li>
+                <li class="nav-item dropdown">
+                  <%= link_to about_path, class: 'dropdown-item nav-link text-white' do %>
+                    <i class="fa-solid fa-link"></i> About
+                  <% end %>
+                </li>
+                <li class="nav-item dropdown">
+                  <%= link_to new_user_session_path, class: 'dropdown-item nav-link text-white' do %>
+                    <i class="fa-solid fa-right-to-bracket"></i> ログイン
+                  <% end %>
+                </li>
+              <% else %>
+                <!-- サインインしていない場合のリンク -->
+                <li class="nav-item dropdown">
+                  <%= link_to root_path, class: 'dropdown-item nav-link text-white' do %>
+                    <i class="fa-solid fa-house"></i> Home
+                  <% end %>
+                </li>
+                <li class="nav-item dropdown">
+                  <%= link_to user_path(current_user.id), class: 'dropdown-item nav-link text-white' do %>
+                    <i class="fa-solid fa-house-user"></i> マイページ
+                  <% end %>
+                </li>
+                <li class="nav-item dropdown">
+                  <%= link_to destroy_user_session_path, class: 'dropdown-item nav-link text-white' do %>
+                    <!-- pathの後ろに「,」が無かったから、その後ろにあるclass〜doまでが同じURLとして読み込まれてリンクが変になってた。気を付ける -->
+                    <i class="fa-solid fa-pen-to-square"></i> ログアウト
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
           </div>
-          <div>
-            <p>© 2024 Your Company. All rights reserved.</p>
+        </div>
+      </nav>
+    </header>
+    
+    <main>
+      <% flash.each do |message_type, message| %>
+        <div class="flash-message <%= message_type %>"><%= message %></div>
+      <% end %>
+      <%= yield %>
+    </main>
+    
+    <footer>
+      <div class="container">
+        <div class="row m-5">
+          <div class="mx-auto">
+            <div>
+              <%= link_to "管理者専用", new_admin_session_path %>
+            </div>
+            <div>
+              <p>© 2025 Your Company. All rights reserved.</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </footer>
-</body>
+    </footer>
+  </body>
 </html>

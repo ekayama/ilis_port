@@ -12,6 +12,10 @@
   font-size: 30px;
 }
 
+.user-font-saize {
+  font-size: 13px;
+}
+
 .toukoubi {
   text-align: right;
 }
@@ -19,3 +23,19 @@
 .border-bt {
   border-bottom: 0.3px solid #4682b4;
 }
+
+.backcolor-user {
+  background-color: #e6e6fa;
+}
+
+
+
+
+
+.navbar-nav .nav-link {
+  padding: 0 15px; /* 項目間のスペース */
+  transition: color 0.3s ease;
+}
+
+
+

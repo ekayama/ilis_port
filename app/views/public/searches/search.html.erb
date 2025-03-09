@@ -1,3 +1,4 @@
+
 <div class="m-3 text-center font">
   <% if @model == 'user' %>
 	  <h3>"<%= @content %>" からのユーザー検索結果</h3>
@@ -11,7 +12,7 @@
   <br>
 </div>
 <div class="d-flex justify-content-center w-100">
-  <%= link_to "Back", posts_path %>
+  <%= link_to "Back", posts_path, class: "btn btn-sm btn-outline-secondary mb-3", style: "border-radius: 10px;" %>
 </div>
  
 

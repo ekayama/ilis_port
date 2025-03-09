@@ -1,6 +1,10 @@
-<h2>Follower Users</h2>
-<% if @records.exists? %>
-  <%= render '/public/users/index', users: @users %>
-<% else %>
-  <p>ユーザーはいません</p>
-<% end %>
+
+<div class="p-3 m-3">
+  <h3>Follower Users</h3>
+  <% if @records.exists? %>
+    <%= render '/public/users/index', users: @users %>
+  <% else %>
+    <p>ユーザーはいません</p>
+  <% end %>
+  <%= paginate @records, theme: 'bootstrap-5' %>
+</div>
