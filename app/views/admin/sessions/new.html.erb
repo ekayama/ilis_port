@@ -3,9 +3,8 @@
     <div class="row d-flex justify-content-center">
       <div class="col-12 col-none-12 col-sm-12 col-md-12 col-lg-8">
         <h2>Log in(管理者用)</h2><br>
-
-          <table class="table">
-            <%= form_with model: @admin, url: session_path(resource_name), local: true do |f| %>
+         <%= form_with model: @admin, url: session_path(resource_name), local: true do |f| %>
+           <table class="table">
               <tr>
                 <th><%= f.label :email %><br /></th>
                 <td><%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
@@ -29,8 +28,8 @@
                 <th> </th>
                 <td><%= f.submit "Log in" %><br><%= render "admin/shared/links" %></td>
               </tr>
-            <% end %>
-          </table>
+            </table>
+         <% end %>
       </div>
     </div>
   </div>

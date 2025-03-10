@@ -9,6 +9,7 @@ class Public::PostsController < ApplicationController
       @post = Post.new(post_params)
       @post.user_id = current_user.id
       if @post.save
+        flash[:notice] = "You have created the post successfully."
         redirect_to post_path(@post)
       else
         render :new
@@ -16,7 +17,7 @@ class Public::PostsController < ApplicationController
     end
   
     def index
-      @posts = Post.active_posts.page(params[:page]).per(12)
+      @posts = Post.active_posts.page(params[:page]).per(9)
 
     end
     

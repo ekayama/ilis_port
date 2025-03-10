@@ -14,6 +14,7 @@ class Post < ApplicationRecord
     favorites.where(user_id: user.id).exists?
   end
   
+  # 単体投稿用
   def get_image(height, width)
     if images.attached?
       images.first.variant(resize_to_limit: [height, width]).processed # 最初の1枚を取得
@@ -26,7 +27,8 @@ class Post < ApplicationRecord
       ).variant(resize_to_limit: [height, width]).processed
     end
   end
-
+  
+  # 複数投稿の場合
   def get_images(height, width)
     return_images = []
     if images.attached?
@@ -49,7 +51,7 @@ class Post < ApplicationRecord
   def self.search_for(content, method)
     if method == 'perfect'
       Post.where(title: content)
-      # ここだけエラーが起きて実装できず。。
+      # ここだけエラーが起きて苦戦
     elsif method == 'forward'
       Post.where('title or body LIKE ?', content+'%')
     elsif method == 'backward'

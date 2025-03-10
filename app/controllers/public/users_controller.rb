@@ -8,13 +8,13 @@ class Public::UsersController < ApplicationController
   def release
     @user =  User.find(params[:id])
     @user.released! unless @user.released?
-    redirect_to edit_user_path(@user), notice: 'このアカウントを公開しました'
+    redirect_to edit_user_path(@user), notice: "I've set this account to public."
   end
 
   def nonrelease
     @user =  User.find(params[:id])
     @user.nonreleased! unless @user.nonreleased?
-    redirect_to edit_user_path(@user), notice: 'このアカウントを非公開にしました'
+    redirect_to edit_user_path(@user), notice: "I've set this account to private."
   end
 
   def edit
@@ -45,7 +45,7 @@ class Public::UsersController < ApplicationController
     else
       flash.now[:alert] = "失敗しました。"
       render :edit
-      # flashの[:notice]と[:alert]の違いはほぼない。c ssで装飾したいかどうかの違い -->
+      # flashの[:notice]と[:alert]の違いはほぼない。cssで装飾したいかどうかの違い -->
       # flash.nowは画面が変わってから表示するのではなく、そのまま強制的に表示するもの -->
     end
   end

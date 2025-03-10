@@ -21,7 +21,7 @@
               <th>画像</th>
               <td>
                 <div class="field">
-                  <%= f.label :images, "画像を選択してください" %><br>
+                  <%= f.label :images, "画像を選択してください。（複数投稿可）" %><br>
                   <%= f.file_field :images, multiple: true, accept: "image/*"%>
                 </div>
               </td>
@@ -37,8 +37,8 @@
             <tr>
               <td></td>
               <td>
-                <%= f.submit '投稿', class: 'btn btn-primary' %>
-                <%= link_to 'Back', posts_path(@post.id), class: 'btn btn-secondary' %>
+                <%= f.submit '投稿', class: 'btn btn-sm btn-outline-info' %>
+                <%= link_to 'Back', posts_path(@post.id), class: 'btn btn-sm btn-outline-secondary' %>
               </td>
             </tr>
           </table>

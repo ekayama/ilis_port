@@ -18,12 +18,12 @@ class User < ApplicationRecord
 
   enum status:{nonreleased: 0, released: 1}
 
-  # 自分がフォローされる（被フォロー）側の関係性
+  # 自分がフォローされる側の関係性
   has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   # 被フォロー関係を通じて参照→自分をフォローしている人
   has_many :followers, through: :reverse_of_relationships, source: :follower
     
-  # 自分がフォローする（与フォロー）側の関係性
+  # 自分がフォローする側の関係性
   has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   # 与フォロー関係を通じて参照→自分がフォローしている人
   has_many :followings, through: :relationships, source: :followed
@@ -34,8 +34,6 @@ class User < ApplicationRecord
   validates :username, presence: true, uniqueness: true, length: { maximum: 20 }
   validates :profile_description, length: { maximum: 50 }
 
-
-  
 
 
   def get_profile_image(height, width)

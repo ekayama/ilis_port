@@ -33,18 +33,8 @@
                   <% end %>
                 </li>
                 <li class="nav-item dropdown">
-                  <%= link_to admin_dashboards_path, class: 'dropdown-item nav-link text-white' do %>
-                    <i class="fa-solid fa-house-user"></i> 会員一覧
-                  <% end %>
-                </li>
-                <li class="nav-item dropdown">
-                  <%= link_to posts_path, class: 'dropdown-item nav-link text-white' do %>
-                    <i class="fa-solid fa-images"></i> 投稿一覧
-                  <% end %>
-                </li>
-                <li class="nav-item dropdown">
                   <%= link_to destroy_admin_session_path, class: 'dropdown-item nav-link text-white' do %>
-                    <i class="fa-solid fa-pen-to-square"></i> ログアウト
+                    <i class="fa-solid fa-pen-to-square"></i> Log out
                   <% end %>
                 </li>
               <% end %>

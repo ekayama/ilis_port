@@ -99,7 +99,9 @@
                      <!-- 投稿の画像 -->
                      <% if post.images.attached? %>
                        <%= link_to post_path(post) do %>
-                         <%= image_tag post.images.first.variant(resize_to_limit: [250, 250]).processed, class: "img-fluid rounded mb-3", style: "width: 100%; height: 200px; object-fit: cover; border-radius: 10px;" %>
+                         <%= image_tag post.images.first.variant(resize_to_limit: [250, 250]).processed, 
+                         class: "img-fluid rounded mb-3", 
+                         style: "width: 100%; height: 200px; object-fit: cover; border-radius: 10px;" %>
                        <% end %>
                      <% else %>
                        <p class="text-muted">画像がありません</p>

@@ -1,3 +1,4 @@
+
 <div id="error">
   <% if @comment.errors.any? %>
     <h3><%= @comment.errors.count %> errors prohibited this obj from being saved:</h3>
@@ -14,8 +15,7 @@
     <!-- 戻るボタン -->
     <%= link_to "Back", posts_path, class: "btn btn-sm btn-outline-secondary mb-3", style: "border-radius: 10px;" %>
   
-    
-    <!-- リンクの横並びリスト -->
+    <!-- リンク横並びリスト -->
     <div class="list mb-3">
       <ul class="list-inline ">
         <li class="list-inline-item mx-2">
@@ -40,7 +40,7 @@
       <%= render "public/searches/form" %>
     </div>
 
-    <!-- 投稿者情報とフォローボタン -->
+    <!-- 投稿者情報 フォローボタン -->
     <div class="d-flex align-items-center mb-4">
       <%= image_tag @post.user.get_profile_image(40, 40), 
         class: "rounded-circle shadow-sm me-3 mr-2", 
@@ -64,32 +64,37 @@
     <!-- 投稿詳細 -->
     <div class="row pt-4">
       <div class="col-md-12 col-lg-9">
-        <% @post.get_images(730, 730).each do |image| %>
-          <%= image_tag image, class: "img-fluid rounded mb-3 shadow" %>
+       <div class="image-gallery">
+        <% @post.images.each do |image| %>
+         <%= image_tag image.variant(resize_to_fit: [730, 730]).processed, 
+           class: "img-fluid rounded mb-3 shadow", 
+           style: "width: 100%; height: auto; object-fit: cover;" %>
         <% end %>
+       </div>
+    
+       <div class="text-muted text-right small mb-3">
+         投稿日: <%= @post.created_at.strftime('%Y/%m/%d') %>
+       </div>
+       <h4 class=" mb-3"><strong><%= @post.title %></strong></h4>
+       <%= render "public/favorites/btn", post: @post %>
 
-        <div class="text-muted text-right small mb-3">
-          投稿日: <%= @post.created_at.strftime('%Y/%m/%d') %>
-        </div>
-        <h4 class=" mb-3"><strong><%= @post.title %></strong></h4>
-        <%= render "public/favorites/btn", post: @post %>
-
-        <div class="body mt-3 mb-3 d-flex justify-content-between align-items-center">
-          <!-- Body部分：左寄せ -->
-          <div class="text-start">
-            <%= @post.body %>
-          </div>
-          <!-- ボタン部分：右寄せ -->
-          <div class="d-flex gap-2 ms-auto">
-          <% if @post.user == current_user %>
-            <%= link_to "編集", edit_post_path(@post.id), class: "btn btn-sm btn-outline-info", 
-            style: "border-radius: 10px;" %>
-            <%= link_to "削除", post_path(@post), method: :delete, 
-              class: "btn btn-sm btn-secondary",
-              data: { confirm: "本当に削除しますか？" } %>
+       <div class="body mt-3 mb-3 d-flex justify-content-between align-items-center">
+         <!-- Body部分：左寄せ -->
+         <div class="text-start">
+           <%= @post.body %>
+         </div>
+         <!-- ボタン部分：右寄せ -->
+         <div class="d-flex gap-2 ms-auto">
+           <% if @post.user == current_user %>
+             <%= link_to "編集", edit_post_path(@post.id), class: "btn btn-sm btn-outline-info mr-2", 
+             style: "border-radius: 10px;" %>
+             <%= link_to "削除", post_path(@post), method: :delete, 
+               class: "btn btn-sm btn-secondary",
+               style: "border-radius: 10px;",
+               data: { confirm: "本当に削除しますか？" } %>
            <% end %>
-          </div>
-        </div>
+         </div>
+       </div>
       </div>
     </div>
 
@@ -121,7 +126,6 @@
           </div>
         <% end %>
         
-
         <%= form_with model: [@post, @comment], local: true, class: "d-flex align-items-center mt-5" do |f| %>
           <!-- コメント入力欄 -->
           <div class="flex-grow-1 me-2">
@@ -131,9 +135,7 @@
   
           <!-- 送信ボタン -->
           <%= f.submit "送信", class: "btn btn-sm btn-outline-info ml-2", style: "border-radius: 10px;"  %>
-        <% end %>
-
-        
+        <% end %> 
       </div>
     </div>
   </div>

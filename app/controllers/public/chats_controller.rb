@@ -21,9 +21,9 @@ class Public::ChatsController < ApplicationController
   def create
     @chat = current_user.chats.new(chat_params)
     if @chat.save
-      redirect_back fallback_location: root_path, notice: 'メッセージが送信されました。'
+      redirect_back fallback_location: root_path, notice: 'Message sent.'
     else
-      redirect_back fallback_location: root_path, alert: 'メッセージの送信に失敗しました。'
+      redirect_back fallback_location: root_path, alert: 'Failed to send message.'
     end
   end
 

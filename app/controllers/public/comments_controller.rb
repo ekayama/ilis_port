@@ -10,15 +10,14 @@ class Public::CommentsController < ApplicationController
     @comment = current_user.comments.new(comment_params)
     @comment.post_id = @post.id
     if @comment.save
-      flash[:notice] = "コメントが正常に保存されました！"
+      flash[:notice] = "Comment has been posted successfully."
       redirect_to request.referer
-    else flash.now[:alert] = "コメントの保存に失敗しました。" 
+    else flash.now[:alert] = "Failed to post the comment. Please try again.。" 
       @user = @post.user
       @posts = @user.posts
       render 'posts/show'
       # 変数について、基本は必ず＠をつけて受け渡しできるようにする
       # コメントの引数にUserとPostがなかったので気を付ける
-      # 
     end
   end
 
