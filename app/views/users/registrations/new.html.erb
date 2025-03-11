@@ -15,8 +15,8 @@
     <div class="row d-flex justify-content-center">
       <div class="col-12 col-none-12 col-sm-12 col-md-12 col-lg-8">
         <h2>Sign up</h2>
-          <table class="table">
-            <%= form_with model: @user, url: user_registration_path do |f| %>
+          <%= form_with model: @user, url: user_registration_path do |f| %>
+            <table class="table">
               <%= render "users/shared/error_messages", resource: resource %>
                 <tr>
                   <th><%= f.label :username %><br /></th>
@@ -43,8 +43,8 @@
                   <th></th>
                   <td><%= f.submit "Sign up" %><br><%= render "users/shared/links" %></td>
                 </tr>
-            <% end %>
-          </table>
+            </table>
+          <% end %>
       </div>
     </div>
   </div>
