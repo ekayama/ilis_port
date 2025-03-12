@@ -1,10 +1,10 @@
 
-<div class="p-3 m-3">
+<div class="p-3 m-3 font">
+  <%= link_to "Back", user_path(current_user), class: "btn btn-sm btn-outline-secondary mb-3", style: "border-radius: 10px;" %>
   <h3>Follow Users</h3>
   <% if @records.exists? %>
     <%= render 'public//users/index', users: @users %>
   <% else %>
     <p>ユーザーはいません</p>
   <% end %>
-  <%= paginate @records, theme: 'bootstrap-5' %>
 </div>
