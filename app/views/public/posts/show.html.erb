@@ -111,7 +111,7 @@
                 style: "width: 60px; height: 60px; object-fit: cover;" %>
               <div class="ml-3">
                 <h7><%= comment.user.username %></h7><br>
-                <span class="text-muted"><%= comment.comment %></span>
+                <span class="text-muted text-break"><%= comment.comment %></span>
               </div>
             </div>
         
@@ -119,8 +119,11 @@
             <% if comment.user == current_user %>
               <div>
                 <%= link_to "削除", post_comment_path(@post, comment), method: :delete,
-                  class: "btn btn-sm btn-outline-secondary",
+                  class: "btn btn-sm btn-outline-secondary text-nowrap",
+                  style: "border-radius: 10px;",
                   data: { confirm: "本当に削除しますか？" } %>
+                  <!-- text-nowrap=テキストが折り返されることなく、すべて同じ行に保持
+                       今回はコメントが長いとボタンが縦になったから、ボタンにのみ付けた-->
               </div>
             <% end %>
           </div>
@@ -140,3 +143,5 @@
     </div>
   </div>
 </div>
+
+
