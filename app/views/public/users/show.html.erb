@@ -29,11 +29,11 @@
      <!-- ユーザーの詳細 -->
         <% if current_user != @user && @user.nonreleased? %>
           <!-- 非公開ユーザーの表示 -->
-          <h3><%= link_to user_path(@user), class: "mx-2" do %>
-            <u><%= @post.user.username %></u>
+          <h4><%= link_to user_path(@user), class: "mx-2" do %>
+            <%= @user.username %>
           <% end %>
-          <i class="fa-solid fa-lock"></i></h3>
-          <h3>非公開です...</h3>
+          <i class="fa-solid fa-lock"></i></h4>
+          <h6>非公開中です...</h6>
         <% else %>
            <div class="container py-4">
           <!-- ユーザー情報表示 -->
