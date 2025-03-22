@@ -19,8 +19,7 @@ class Public::FavoritesController < ApplicationController
     #byebug　↓ここ編集
     @user = User.find(params[:user_id])
     favorites = Favorite.where(user_id: @user.id).pluck(:post_id)
-    @posts = Post.find(favorites)
-    @posts = Post.joins(:user).where(user:  {status: 1})
+    @posts = Post.where(id: favorites).joins(:user).where(users: {status: 1}) 
   end
 
 end
