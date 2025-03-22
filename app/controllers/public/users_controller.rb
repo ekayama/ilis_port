@@ -52,10 +52,17 @@ class Public::UsersController < ApplicationController
   end
 
   def destroy
-    user = User.find(params[:id])
-    @user.update(is_deleted: true)
-    flash[:notice] = "退会しました"
-    redirect_to new_user_registration_path
+    # user = User.find(params[:id])
+    # @user.update(is_deleted: true)
+    # flash[:notice] = "退会しました"
+    # redirect_to new_user_registration_path
+
+      user = User.find(params[:id])
+      user.update(is_deleted: true)
+      reset_session  # セッションをリセットし強制ログアウト
+      flash[:notice] = "退会しました"
+      redirect_to new_user_registration_path
+    
   end
 
   private

@@ -34,8 +34,13 @@ class User < ApplicationRecord
   validates :username, presence: true, uniqueness: true, length: { maximum: 20 }
   validates :profile_description, length: { maximum: 50 }
 
-
-
+  class User < ApplicationRecord
+    # 退会済みのユーザーはログイン不可
+    def active_for_authentication?
+      super && !is_deleted
+    end
+  end
+  
   def get_profile_image(height, width)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images3/no_image.jpg')
