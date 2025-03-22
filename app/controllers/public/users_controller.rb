@@ -53,7 +53,8 @@ class Public::UsersController < ApplicationController
 
   def destroy
     user = User.find(params[:id])
-    user.destroy
+    @user.update(is_deleted: true)
+    flash[:notice] = "退会しました"
     redirect_to new_user_registration_path
   end
 
